@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chichi - Len Handmade</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff8fb;
+            color: #5b4149;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ffdce8, #f7bfd3);
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .logo {
+            width: 125px;
+            height: 125px;
+            margin: auto;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+            box-shadow: 0 6px 20px rgba(180, 100, 130, 0.15);
+        }
+
+        header h1 {
+            margin: 18px 0 8px;
+            font-size: 46px;
+            color: #b84f73;
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 35px 20px 10px;
+        }
+
+        .intro h2 {
+            color: #a94d6d;
+            font-size: 28px;
+        }
+
+        .intro p {
+            color: #8c7078;
+        }
+
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 30px 20px 60px;
+        }
+
+        .product {
+            width: 270px;
+            background: white;
+            padding: 25px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 7px 22px rgba(180, 100, 130, 0.12);
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: translateY(-7px);
+        }
+
+        .product-image {
+            width: 170px;
+            height: 170px;
+            margin: auto;
+            background: #fff0f5;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 85px;
+        }
+
+        .product h3 {
+            font-size: 21px;
+            margin: 18px 0 10px;
+        }
+
+        .price {
+            color: #d2577c;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        button {
+            border: none;
+            background: #d9688b;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #bd4f72;
+            transform: scale(1.04);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(80, 40, 50, 0.45);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .order-box {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+        }
+
+        .order-box h2 {
+            color: #b84f73;
+            margin-top: 0;
+        }
+
+        .order-box input,
+        .order-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #f0c8d5;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .order-box textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        .close-btn {
+            background: #ddd;
+            color: #555;
+            margin-left: 8px;
+        }
+
+        .close-btn:hover {
+            background: #ccc;
+        }
+
+        footer {
+            background: #f8d3df;
+            text-align: center;
+            padding: 30px 20px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            🧶
+        </div>
+
+        <h1>Chichi</h1>
+
+        <p>
+            Những món len nhỏ xinh được làm bằng đôi tay ❤️
+        </p>
+
+    </header>
+
+
+    <section class="intro">
+
+        <h2>🌷 Sản phẩm của Chichi</h2>
+
+        <p>
+            Một chút đáng yêu dành cho bạn 💕
+        </p>
+
+    </section>
+
+
+    <section class="products">
+
+        <div class="product">
+
+            <div class="product-image">
+                🧸
+            </div>
+
+            <h3>
+                Gấu len mini
+            </h3>
+
+            <p class="price">
+                129.000đ
+            </p>
+
+            <button onclick="openOrder('Gấu len mini', '129.000đ')">
+                🛒 Mua ngay
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-image">
+                🌷
+            </div>
+
+            <h3>
+                Hoa len
+            </h3>
+
+            <p class="price">
+                59.000đ
+            </p>
+
+            <button onclick="openOrder('Hoa len', '59.000đ')">
+                🛒 Mua ngay
+            </button>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-image">
+                🎀
+            </div>
+
+            <h3>
+                Móc khóa len
+            </h3>
+
+            <p class="price">
+                39.000đ
+            </p>
+
+            <button onclick="openOrder('Móc khóa len', '39.000đ')">
+                🛒 Mua ngay
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div class="modal" id="orderModal">
+
+        <div class="order-box">
+
+            <h2>💗 Đặt hàng Chichi</h2>
+
+            <p id="selectedProduct"></p>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Tên của bạn"
+            >
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Số điện thoại"
+            >
+
+            <textarea
+                id="customerAddress"
+                placeholder="Địa chỉ nhận hàng"
+            ></textarea>
+
+            <br><br>
+
+            <button onclick="submitOrder()">
+                💕 Gửi đơn hàng
+            </button>
+
+            <button
+                class="close-btn"
+                onclick="closeOrder()"
+            >
+                Đóng
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        <strong>Chichi Handmade 🧶💕</strong>
+
+        <br>
+
+        Làm bằng tay, gửi bằng cả yêu thương.
+
+        <br>
+
+        © 2026 Chichi
+
+    </footer>
+
+
+    <script>
+
+        /* ===== KẾT NỐI GOOGLE SHEETS ===== */
+
+        const GOOGLE_SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbwY3ETQkpDB4L1XJ08_LO0qUv2oWipnoRi2YY4svfwfFN3mMG-S5RGHwOsWtVCGUTC6HQ/exec";
+
+
+        let selectedProduct = "";
+        let selectedPrice = "";
+
+
+        /* ===== MỞ FORM ===== */
+
+        function openOrder(product, price) {
+
+            selectedProduct = product;
+            selectedPrice = price;
+
+            document.getElementById("selectedProduct").innerHTML =
+                "Bạn đang đặt: <strong>" +
+                product +
+                "</strong> - " +
+                price;
+
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+
+        /* ===== ĐÓNG FORM ===== */
+
+        function closeOrder() {
+
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+
+        /* ===== GỬI ĐƠN HÀNG ===== */
+
+        function submitOrder() {
+
+            let name =
+                document.getElementById("customerName").value.trim();
+
+            let phone =
+                document.getElementById("customerPhone").value.trim();
+
+            let address =
+                document.getElementById("customerAddress").value.trim();
+
+
+            /* Kiểm tra thông tin */
+
+            if (
+                name === "" ||
+                phone === "" ||
+                address === ""
+            ) {
+
+                alert(
+                    "Bạn hãy điền đầy đủ thông tin nhé ❤️"
+                );
+
+                return;
+            }
+
+
+            /* Tạo dữ liệu gửi */
+
+            const formData = new URLSearchParams();
+
+            formData.append("name", name);
+            formData.append("phone", phone);
+            formData.append("address", address);
+            formData.append("product", selectedProduct);
+            formData.append("price", selectedPrice);
+
+
+            alert(
+                "⏳ Chichi đang gửi đơn hàng..."
+            );
+
+
+            /* Gửi sang Google Sheets */
+
+            fetch(GOOGLE_SCRIPT_URL, {
+
+                method: "POST",
+
+                mode: "no-cors",
+
+                body: formData
+
+            })
+
+            .then(function () {
+
+                alert(
+                    "🎉 Đặt hàng thành công!\n\n" +
+                    "Sản phẩm: " +
+                    selectedProduct +
+                    "\nGiá: " +
+                    selectedPrice +
+                    "\n\n" +
+                    "Cảm ơn " +
+                    name +
+                    " đã ủng hộ Chichi ❤️"
+                );
+
+
+                /* Xóa thông tin */
+
+                document.getElementById("customerName").value = "";
+
+                document.getElementById("customerPhone").value = "";
+
+                document.getElementById("customerAddress").value = "";
+
+
+                closeOrder();
+
+            })
+
+            .catch(function (error) {
+
+                console.log(error);
+
+                alert(
+                    "❌ Không gửi được đơn hàng.\n\n" +
+                    "Bạn hãy thử lại nhé!"
+                );
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html> 
