@@ -1159,8 +1159,6 @@
             </div>
 
 
-            <!-- FORM ĐÁNH GIÁ -->
-
             <div class="review-form-box">
 
                 <h3>
@@ -1295,7 +1293,7 @@
 
                 <div class="file-note">
 
-                    Video tối đa 5MB.
+                    Video tối đa 4MB để đảm bảo gửi ổn định.
 
                 </div>
 
@@ -1309,6 +1307,7 @@
                 <button
                     onclick="submitReview()"
                     id="submitReviewButton"
+                    type="button"
                 >
                     ⭐ Gửi đánh giá
                 </button>
@@ -1396,6 +1395,7 @@
         <button
             onclick="submitOrder()"
             id="submitOrderButton"
+            type="button"
         >
             💕 Gửi đơn hàng
         </button>
@@ -1434,6 +1434,16 @@
 
 const GOOGLE_SCRIPT_URL =
     "https://script.google.com/macros/s/AKfycbwLLDNHvuQfDOj54UJxuq-hkmvdQQe4rIwyH0GWAY9MzOT_k8rqX8pXnd9PENc3gay-sA/exec";
+
+
+/****************************************************
+ * GIỚI HẠN FILE
+ ****************************************************/
+
+const MAX_REVIEW_IMAGES = 6;
+
+const MAX_REVIEW_VIDEO_SIZE =
+    4 * 1024 * 1024;
 
 
 /****************************************************
@@ -1496,97 +1506,78 @@ let selectedPrice = "";
 function renderProducts() {
 
     const container =
-        document.getElementById(
-            "products"
-        );
-
+        document.getElementById("products");
 
     container.innerHTML = "";
 
+    products.forEach(function(product) {
 
-    products.forEach(
-        function(product) {
+        const card =
+            document.createElement("div");
 
-            const card =
-                document.createElement(
-                    "div"
+        card.className = "product";
+
+        card.innerHTML = `
+
+            <div class="product-image">
+                ${product.icon}
+            </div>
+
+            <h3>
+                ${escapeHTML(product.name)}
+            </h3>
+
+            <p class="price">
+                ${escapeHTML(product.price)}
+            </p>
+
+            <div class="product-buttons">
+
+                <button
+                    class="detail-button"
+                    type="button"
+                >
+                    👀 Xem sản phẩm
+                </button>
+
+                <button
+                    class="buy-button"
+                    type="button"
+                >
+                    🛒 Mua ngay
+                </button>
+
+            </div>
+
+        `;
+
+
+        card
+            .querySelector(".detail-button")
+            .onclick =
+            function() {
+
+                openDetail(product);
+
+            };
+
+
+        card
+            .querySelector(".buy-button")
+            .onclick =
+            function() {
+
+                openOrder(
+                    product.name,
+                    product.price
                 );
 
-
-            card.className =
-                "product";
+            };
 
 
-            card.innerHTML = `
+        container.appendChild(card);
 
-                <div class="product-image">
-                    ${product.icon}
-                </div>
-
-                <h3>
-                    ${escapeHTML(product.name)}
-                </h3>
-
-                <p class="price">
-                    ${escapeHTML(product.price)}
-                </p>
-
-                <div class="product-buttons">
-
-                    <button
-                        class="detail-button"
-                        type="button"
-                    >
-                        👀 Xem sản phẩm
-                    </button>
-
-                    <button
-                        class="buy-button"
-                        type="button"
-                    >
-                        🛒 Mua ngay
-                    </button>
-
-                </div>
-
-            `;
-
-
-            card
-                .querySelector(
-                    ".detail-button"
-                )
-                .onclick =
-                function() {
-
-                    openDetail(
-                        product
-                    );
-
-                };
-
-
-            card
-                .querySelector(
-                    ".buy-button"
-                )
-                .onclick =
-                function() {
-
-                    openOrder(
-                        product.name,
-                        product.price
-                    );
-
-                };
-
-
-            container.appendChild(
-                card
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -1597,9 +1588,7 @@ function renderProducts() {
 
 function openDetail(product) {
 
-    currentProduct =
-        product;
-
+    currentProduct = product;
 
     document.getElementById(
         "detailContent"
@@ -1637,8 +1626,7 @@ function openDetail(product) {
 
     document.getElementById(
         "detailModal"
-    ).style.display =
-        "flex";
+    ).style.display = "flex";
 
 
     resetReviewForm();
@@ -1656,8 +1644,7 @@ function closeDetail() {
 
     document.getElementById(
         "detailModal"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 }
 
@@ -1672,9 +1659,7 @@ function openOrderFromDetail() {
         return;
     }
 
-
     closeDetail();
-
 
     openOrder(
         currentProduct.name,
@@ -1685,7 +1670,7 @@ function openOrderFromDetail() {
 
 
 /****************************************************
- * ĐỌC THÔNG TIN KHÁCH ĐÃ LƯU
+ * ĐỌC THÔNG TIN KHÁCH
  ****************************************************/
 
 function loadSavedCustomer() {
@@ -1697,17 +1682,12 @@ function loadSavedCustomer() {
                 "chichiCustomer"
             );
 
-
         if (!saved) {
             return null;
         }
 
-
         const customer =
-            JSON.parse(
-                saved
-            );
-
+            JSON.parse(saved);
 
         if (
             !customer ||
@@ -1717,7 +1697,6 @@ function loadSavedCustomer() {
             return null;
 
         }
-
 
         return customer;
 
@@ -1751,14 +1730,11 @@ function saveCustomer(
             "chichiCustomer",
             JSON.stringify({
 
-                name:
-                    name,
+                name: name,
 
-                phone:
-                    phone,
+                phone: phone,
 
-                address:
-                    address
+                address: address
 
             })
         );
@@ -1784,11 +1760,9 @@ function openOrder(
     price
 ) {
 
-    selectedProduct =
-        product;
+    selectedProduct = product;
 
-    selectedPrice =
-        price;
+    selectedPrice = price;
 
 
     document.getElementById(
@@ -1797,15 +1771,11 @@ function openOrder(
 
         "Bạn đang đặt: <strong>" +
 
-        escapeHTML(
-            product
-        ) +
+        escapeHTML(product) +
 
         "</strong><br>Giá: " +
 
-        escapeHTML(
-            price
-        );
+        escapeHTML(price);
 
 
     const customer =
@@ -1817,30 +1787,26 @@ function openOrder(
         document.getElementById(
             "customerName"
         ).value =
-            customer.name ||
-            "";
+            customer.name || "";
 
 
         document.getElementById(
             "customerPhone"
         ).value =
-            customer.phone ||
-            "";
+            customer.phone || "";
 
 
         document.getElementById(
             "customerAddress"
         ).value =
-            customer.address ||
-            "";
+            customer.address || "";
 
     }
 
 
     document.getElementById(
         "orderModal"
-    ).style.display =
-        "flex";
+    ).style.display = "flex";
 
 }
 
@@ -1853,8 +1819,7 @@ function closeOrder() {
 
     document.getElementById(
         "orderModal"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 }
 
@@ -1944,9 +1909,7 @@ function submitOrder() {
         );
 
 
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.innerText =
         "⏳ Đang gửi...";
@@ -1961,40 +1924,34 @@ function submitOrder() {
         "order"
     );
 
-
     formData.append(
         "name",
         name
     );
-
 
     formData.append(
         "phone",
         phone
     );
 
-
     formData.append(
         "address",
         address
     );
-
 
     formData.append(
         "product",
         selectedProduct
     );
 
-
     formData.append(
         "price",
         selectedPrice
     );
 
-
     formData.append(
         "quantity",
-        quantity
+        String(quantity)
     );
 
 
@@ -2002,77 +1959,65 @@ function submitOrder() {
         GOOGLE_SCRIPT_URL,
         {
 
-            method:
-                "POST",
+            method: "POST",
 
-            mode:
-                "no-cors",
+            mode: "no-cors",
 
-            body:
-                formData
+            body: formData
 
         }
     )
-    .then(
-        function() {
+    .then(function() {
 
-            alert(
+        alert(
 
-                "🎉 Đặt hàng thành công!\n\n" +
+            "🎉 Đặt hàng thành công!\n\n" +
 
-                "Sản phẩm: " +
-                selectedProduct +
+            "Sản phẩm: " +
+            selectedProduct +
 
-                "\nSố lượng: " +
-                quantity +
+            "\nSố lượng: " +
+            quantity +
 
-                "\nGiá: " +
-                selectedPrice +
+            "\nGiá: " +
+            selectedPrice +
 
-                "\n\nCảm ơn " +
-                name +
-                " đã ủng hộ Chichi ❤️"
+            "\n\nCảm ơn " +
+            name +
+            " đã ủng hộ Chichi ❤️"
 
-            );
-
-
-            document.getElementById(
-                "customerQuantity"
-            ).value =
-                1;
+        );
 
 
-            closeOrder();
-
-        }
-    )
-    .catch(
-        function(error) {
-
-            console.error(
-                "Lỗi gửi đơn hàng:",
-                error
-            );
+        document.getElementById(
+            "customerQuantity"
+        ).value = 1;
 
 
-            alert(
-                "❌ Không gửi được đơn hàng.\n\nBạn hãy thử lại nhé!"
-            );
+        closeOrder();
 
-        }
-    )
-    .finally(
-        function() {
+    })
+    .catch(function(error) {
 
-            button.disabled =
-                false;
+        console.error(
+            "Lỗi gửi đơn hàng:",
+            error
+        );
 
 
-            button.innerText =
-                "💕 Gửi đơn hàng";
+        alert(
+            "❌ Không gửi được đơn hàng.\n\nBạn hãy thử lại nhé!"
+        );
 
-        }
-    );
+    })
+    .finally(function() {
+
+        button.disabled = false;
+
+        button.innerText =
+            "💕 Gửi đơn hàng";
+
+    });
 
 }
 
@@ -2081,12 +2026,9 @@ function submitOrder() {
  * CHỌN SAO
  ****************************************************/
 
-function selectReviewStar(
-    star
-) {
+function selectReviewStar(star) {
 
-    selectedReviewStar =
-        star;
+    selectedReviewStar = star;
 
 
     const buttons =
@@ -2096,14 +2038,9 @@ function selectReviewStar(
 
 
     buttons.forEach(
-        function(
-            button,
-            index
-        ) {
+        function(button, index) {
 
-            if (
-                index < star
-            ) {
+            if (index < star) {
 
                 button.classList.add(
                     "active"
@@ -2147,8 +2084,7 @@ function previewReviewMedia() {
         );
 
 
-    preview.innerHTML =
-        "";
+    preview.innerHTML = "";
 
 
     reviewImages =
@@ -2158,7 +2094,8 @@ function previewReviewMedia() {
 
 
     if (
-        reviewImages.length > 6
+        reviewImages.length >
+        MAX_REVIEW_IMAGES
     ) {
 
         alert(
@@ -2166,12 +2103,9 @@ function previewReviewMedia() {
         );
 
 
-        imageInput.value =
-            "";
+        imageInput.value = "";
 
-
-        reviewImages =
-            [];
+        reviewImages = [];
 
     }
 
@@ -2179,9 +2113,7 @@ function previewReviewMedia() {
     reviewVideo =
         videoInput.files &&
         videoInput.files.length > 0
-
             ? videoInput.files[0]
-
             : null;
 
 
@@ -2189,28 +2121,19 @@ function previewReviewMedia() {
         function(file) {
 
             const url =
-                URL.createObjectURL(
-                    file
-                );
+                URL.createObjectURL(file);
 
 
             const img =
-                document.createElement(
-                    "img"
-                );
+                document.createElement("img");
 
 
-            img.src =
-                url;
+            img.src = url;
+
+            img.alt = "Ảnh đánh giá";
 
 
-            img.alt =
-                "Ảnh đánh giá";
-
-
-            preview.appendChild(
-                img
-            );
+            preview.appendChild(img);
 
         }
     );
@@ -2220,20 +2143,17 @@ function previewReviewMedia() {
 
         if (
             reviewVideo.size >
-            5 * 1024 * 1024
+            MAX_REVIEW_VIDEO_SIZE
         ) {
 
             alert(
-                "🎥 Video đang lớn hơn 5MB. Bạn hãy chọn video nhỏ hơn nhé."
+                "🎥 Video lớn hơn 4MB. Bạn hãy chọn video nhỏ hơn nhé."
             );
 
 
-            videoInput.value =
-                "";
+            videoInput.value = "";
 
-
-            reviewVideo =
-                null;
+            reviewVideo = null;
 
         } else {
 
@@ -2249,17 +2169,11 @@ function previewReviewMedia() {
                 );
 
 
-            video.src =
-                url;
+            video.src = url;
 
+            video.controls = true;
 
-            video.controls =
-                true;
-
-
-            preview.appendChild(
-                video
-            );
+            preview.appendChild(video);
 
         }
 
@@ -2275,10 +2189,7 @@ function previewReviewMedia() {
 function compressImage(file) {
 
     return new Promise(
-        function(
-            resolve,
-            reject
-        ) {
+        function(resolve, reject) {
 
             const reader =
                 new FileReader();
@@ -2307,15 +2218,12 @@ function compressImage(file) {
 
 
                             if (
-                                width >
-                                    maxSize ||
-                                height >
-                                    maxSize
+                                width > maxSize ||
+                                height > maxSize
                             ) {
 
                                 if (
-                                    width >
-                                    height
+                                    width > height
                                 ) {
 
                                     height =
@@ -2324,7 +2232,6 @@ function compressImage(file) {
                                             maxSize /
                                             width
                                         );
-
 
                                     width =
                                         maxSize;
@@ -2337,7 +2244,6 @@ function compressImage(file) {
                                             maxSize /
                                             height
                                         );
-
 
                                     height =
                                         maxSize;
@@ -2392,9 +2298,7 @@ function compressImage(file) {
                                     }
 
 
-                                    resolve(
-                                        blob
-                                    );
+                                    resolve(blob);
 
                                 },
                                 "image/jpeg",
@@ -2405,7 +2309,15 @@ function compressImage(file) {
 
 
                     img.onerror =
-                        reject;
+                        function() {
+
+                            reject(
+                                new Error(
+                                    "Không đọc được ảnh"
+                                )
+                            );
+
+                        };
 
 
                     img.src =
@@ -2415,12 +2327,18 @@ function compressImage(file) {
 
 
             reader.onerror =
-                reject;
+                function() {
+
+                    reject(
+                        new Error(
+                            "Không đọc được file ảnh"
+                        )
+                    );
+
+                };
 
 
-            reader.readAsDataURL(
-                file
-            );
+            reader.readAsDataURL(file);
 
         }
     );
@@ -2435,10 +2353,7 @@ function compressImage(file) {
 function fileToBase64(file) {
 
     return new Promise(
-        function(
-            resolve,
-            reject
-        ) {
+        function(resolve, reject) {
 
             const reader =
                 new FileReader();
@@ -2448,35 +2363,68 @@ function fileToBase64(file) {
                 function() {
 
                     const result =
-                        reader.result;
+                        String(
+                            reader.result || ""
+                        );
 
 
-                    const parts =
-                        result.split(",");
+                    const commaIndex =
+                        result.indexOf(",");
 
 
-                    resolve(
+                    if (
+                        commaIndex === -1
+                    ) {
 
-                        parts.length > 1
+                        resolve(result);
 
-                            ? parts[1]
+                    } else {
 
-                            : ""
+                        resolve(
+                            result.substring(
+                                commaIndex + 1
+                            )
+                        );
 
-                    );
+                    }
 
                 };
 
 
             reader.onerror =
-                reject;
+                function() {
+
+                    reject(
+                        new Error(
+                            "Không đọc được file"
+                        )
+                    );
+
+                };
 
 
-            reader.readAsDataURL(
-                file
-            );
+            reader.readAsDataURL(file);
 
         }
+    );
+
+}
+
+
+/****************************************************
+ * TẠO TÊN FILE AN TOÀN
+ ****************************************************/
+
+function createSafeFileName(
+    index
+) {
+
+    return (
+        "anh-danh-gia-" +
+        Date.now() +
+        "-" +
+        index +
+        ".jpg"
     );
 
 }
@@ -2582,7 +2530,8 @@ async function submitReview() {
 
 
     if (
-        reviewImages.length > 6
+        reviewImages.length >
+        MAX_REVIEW_IMAGES
     ) {
 
         alert(
@@ -2597,11 +2546,11 @@ async function submitReview() {
     if (
         reviewVideo &&
         reviewVideo.size >
-        5 * 1024 * 1024
+        MAX_REVIEW_VIDEO_SIZE
     ) {
 
         alert(
-            "🎥 Video tối đa 5MB nhé."
+            "🎥 Video tối đa 4MB nhé."
         );
 
         return;
@@ -2615,17 +2564,19 @@ async function submitReview() {
         );
 
 
-    button.disabled =
-        true;
+    const message =
+        document.getElementById(
+            "reviewMessage"
+        );
 
+
+    button.disabled = true;
 
     button.innerText =
         "⏳ Đang gửi...";
 
 
-    document.getElementById(
-        "reviewMessage"
-    ).innerHTML =
+    message.innerHTML =
 
         "<div class='loading'>" +
 
@@ -2636,13 +2587,12 @@ async function submitReview() {
 
     try {
 
-        const images =
-            [];
+        const images = [];
 
 
-        /**************************************
-         * ẢNH
-         **************************************/
+        /**********************************************
+         * XỬ LÝ ẢNH
+         **********************************************/
 
         for (
             let i = 0;
@@ -2654,9 +2604,7 @@ async function submitReview() {
                 reviewImages[i];
 
 
-            document.getElementById(
-                "reviewMessage"
-            ).innerHTML =
+            message.innerHTML =
 
                 "<div class='loading'>" +
 
@@ -2688,11 +2636,9 @@ async function submitReview() {
             images.push({
 
                 name:
-                    "anh-danh-gia-" +
-                    Date.now() +
-                    "-" +
-                    (i + 1) +
-                    ".jpg",
+                    createSafeFileName(
+                        i + 1
+                    ),
 
                 mimeType:
                     "image/jpeg",
@@ -2705,19 +2651,16 @@ async function submitReview() {
         }
 
 
-        /**************************************
-         * VIDEO
-         **************************************/
+        /**********************************************
+         * XỬ LÝ VIDEO
+         **********************************************/
 
-        let video =
-            null;
+        let video = null;
 
 
         if (reviewVideo) {
 
-            document.getElementById(
-                "reviewMessage"
-            ).innerHTML =
+            message.innerHTML =
 
                 "<div class='loading'>" +
 
@@ -2735,7 +2678,11 @@ async function submitReview() {
             video = {
 
                 name:
-                    reviewVideo.name,
+                    reviewVideo.name
+                        .replace(
+                            /[^a-zA-Z0-9._-]/g,
+                            "_"
+                        ),
 
                 mimeType:
                     reviewVideo.type ||
@@ -2749,9 +2696,9 @@ async function submitReview() {
         }
 
 
-        /**************************************
-         * LƯU THÔNG TIN KHÁCH
-         **************************************/
+        /**********************************************
+         * LƯU THÔNG TIN KHÁCH TRÊN TRÌNH DUYỆT
+         **********************************************/
 
         saveCustomer(
             name,
@@ -2760,9 +2707,9 @@ async function submitReview() {
         );
 
 
-        /**************************************
-         * FORM DATA
-         **************************************/
+        /**********************************************
+         * TẠO DỮ LIỆU GỬI APPS SCRIPT
+         **********************************************/
 
         const formData =
             new URLSearchParams();
@@ -2820,23 +2767,17 @@ async function submitReview() {
 
         formData.append(
             "images",
-            JSON.stringify(
-                images
-            )
+            JSON.stringify(images)
         );
 
 
         formData.append(
             "video",
-            JSON.stringify(
-                video
-            )
+            JSON.stringify(video)
         );
 
 
-        document.getElementById(
-            "reviewMessage"
-        ).innerHTML =
+        message.innerHTML =
 
             "<div class='loading'>" +
 
@@ -2845,9 +2786,9 @@ async function submitReview() {
             "</div>";
 
 
-        /**************************************
-         * GỬI APPS SCRIPT
-         **************************************/
+        /**********************************************
+         * GỬI ĐẾN APPS SCRIPT
+         **********************************************/
 
         await fetch(
             GOOGLE_SCRIPT_URL,
@@ -2866,24 +2807,17 @@ async function submitReview() {
         );
 
 
-        /*
-         * no-cors không cho đọc response.
-         * Sau khi request được gửi,
-         * chờ Apps Script ghi dữ liệu.
-         */
+        /**********************************************
+         * THÔNG BÁO
+         **********************************************/
 
-
-        document.getElementById(
-            "reviewMessage"
-        ).innerHTML =
+        message.innerHTML =
 
             "<div class='success-message'>" +
 
             "🎉 Cảm ơn " +
 
-            escapeHTML(
-                name
-            ) +
+            escapeHTML(name) +
 
             " đã đánh giá Chichi!" +
 
@@ -2891,41 +2825,42 @@ async function submitReview() {
 
             "❤️ Đánh giá của bạn đã được gửi." +
 
+            "<br><small>" +
+
+            "Ảnh/video đang được lưu vào hệ thống..." +
+
+            "</small>" +
+
             "</div>";
 
 
-        /*
-         * Xóa file.
-         */
+        /**********************************************
+         * XÓA FILE SAU KHI GỬI
+         **********************************************/
 
-        reviewImages =
-            [];
+        reviewImages = [];
 
-        reviewVideo =
-            null;
+        reviewVideo = null;
 
 
         document.getElementById(
             "reviewImages"
-        ).value =
-            "";
+        ).value = "";
 
 
         document.getElementById(
             "reviewVideo"
-        ).value =
-            "";
+        ).value = "";
 
 
         document.getElementById(
             "reviewPreview"
-        ).innerHTML =
-            "";
+        ).innerHTML = "";
 
 
-        /*
-         * Sau 3 giây tải lại đánh giá.
-         */
+        /**********************************************
+         * CHỜ APPS SCRIPT LƯU DRIVE + SHEETS
+         **********************************************/
 
         setTimeout(
             function() {
@@ -2933,7 +2868,7 @@ async function submitReview() {
                 loadReviews();
 
             },
-            3000
+            5000
         );
 
 
@@ -2945,9 +2880,7 @@ async function submitReview() {
         );
 
 
-        document.getElementById(
-            "reviewMessage"
-        ).innerHTML =
+        message.innerHTML =
 
             "<div class='error-message'>" +
 
@@ -2962,9 +2895,7 @@ async function submitReview() {
     }
 
 
-    button.disabled =
-        false;
-
+    button.disabled = false;
 
     button.innerText =
         "⭐ Gửi đánh giá";
@@ -3066,26 +2997,15 @@ function resetReviewForm() {
     }
 
 
-    reviewImages =
-        [];
+    reviewImages = [];
+
+    reviewVideo = null;
+
+    selectedReviewStar = 5;
 
 
-    reviewVideo =
-        null;
+    selectReviewStar(5);
 
-
-    selectedReviewStar =
-        5;
-
-
-    selectReviewStar(
-        5
-    );
-
-
-    /*
-     * Tự điền thông tin khách cũ.
-     */
 
     const customer =
         loadSavedCustomer();
@@ -3132,6 +3052,9 @@ function resetReviewForm() {
 
 /****************************************************
  * TẢI REVIEW
+ *
+ * Dùng JSONP vì GitHub Pages và Apps Script
+ * nằm ở hai domain khác nhau.
  ****************************************************/
 
 function loadReviews() {
@@ -3157,13 +3080,16 @@ function loadReviews() {
         "⏳ Đang tải đánh giá...";
 
 
-    list.innerHTML =
-        "";
+    list.innerHTML = "";
 
 
     const callbackName =
         "chichiReviews_" +
-        Date.now();
+        Date.now() +
+        "_" +
+        Math.floor(
+            Math.random() * 100000
+        );
 
 
     const script =
@@ -3172,32 +3098,33 @@ function loadReviews() {
         );
 
 
-    window[callbackName] =
-        function(reviews) {
-
-            try {
-
-                renderReviews(
-                    reviews
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "Lỗi hiển thị đánh giá:",
-                    error
-                );
+    let finished = false;
 
 
-                summary.innerHTML =
-                    "❌ Không hiển thị được đánh giá.";
+    const cleanup =
+        function() {
 
+            if (finished) {
+                return;
             }
 
 
-            delete window[
-                callbackName
-            ];
+            finished = true;
+
+
+            try {
+
+                delete window[
+                    callbackName
+                ];
+
+            } catch (error) {
+
+                window[
+                    callbackName
+                ] = undefined;
+
+            }
 
 
             if (
@@ -3213,23 +3140,59 @@ function loadReviews() {
         };
 
 
-    script.src =
+    window[callbackName] =
+        function(result) {
 
-        GOOGLE_SCRIPT_URL +
+            try {
 
-        "?productId=" +
+                let reviews =
+                    result;
 
-        encodeURIComponent(
-            currentProduct.id
-        ) +
 
-        "&callback=" +
+                /*
+                 * Hỗ trợ cả:
+                 *
+                 * [...]
+                 *
+                 * và:
+                 *
+                 * { reviews: [...] }
+                 */
 
-        callbackName +
+                if (
+                    result &&
+                    !Array.isArray(result) &&
+                    Array.isArray(result.reviews)
+                ) {
 
-        "&t=" +
+                    reviews =
+                        result.reviews;
 
-        Date.now();
+                }
+
+
+                renderReviews(
+                    reviews
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Lỗi hiển thị đánh giá:",
+                    error
+                );
+
+
+                summary.innerHTML =
+                    "❌ Không hiển thị được đánh giá.";
+
+            }
+
+
+            cleanup();
+
+        };
 
 
     script.onerror =
@@ -3248,27 +3211,152 @@ function loadReviews() {
                 "</div>";
 
 
-            delete window[
-                callbackName
-            ];
-
-
-            if (
-                script.parentNode
-            ) {
-
-                script.parentNode.removeChild(
-                    script
-                );
-
-            }
+            cleanup();
 
         };
+
+
+    script.src =
+
+        GOOGLE_SCRIPT_URL +
+
+        "?action=reviews" +
+
+        "&productId=" +
+
+        encodeURIComponent(
+            currentProduct.id
+        ) +
+
+        "&callback=" +
+
+        encodeURIComponent(
+            callbackName
+        ) +
+
+        "&t=" +
+
+        Date.now();
 
 
     document.body.appendChild(
         script
     );
+
+
+    /*
+     * Nếu Apps Script không trả lời
+     * trong 15 giây thì báo lỗi.
+     */
+
+    setTimeout(
+        function() {
+
+            if (!finished) {
+
+                summary.innerHTML =
+                    "❌ Máy chủ phản hồi quá lâu.";
+
+
+                list.innerHTML =
+
+                    "<div class='empty'>" +
+
+                    "Vui lòng thử đóng và mở lại sản phẩm." +
+
+                    "</div>";
+
+
+                cleanup();
+
+            }
+
+        },
+        15000
+    );
+
+}
+
+
+/****************************************************
+ * CHUẨN HÓA URL ẢNH
+ ****************************************************/
+
+function normalizeImageUrl(
+    value
+) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        typeof value === "string"
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        typeof value === "object"
+    ) {
+
+        return (
+            value.url ||
+            value.imageUrl ||
+            value.thumbnailUrl ||
+            value.webContentLink ||
+            ""
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+/****************************************************
+ * CHUẨN HÓA URL VIDEO
+ ****************************************************/
+
+function normalizeVideoUrl(
+    value
+) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        typeof value === "string"
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        typeof value === "object"
+    ) {
+
+        return (
+            value.url ||
+            value.videoUrl ||
+            value.previewUrl ||
+            ""
+        );
+
+    }
+
+
+    return "";
 
 }
 
@@ -3331,8 +3419,7 @@ function renderReviews(
     }
 
 
-    let total =
-        0;
+    let total = 0;
 
 
     reviews.forEach(
@@ -3353,9 +3440,7 @@ function renderReviews(
 
 
     const rounded =
-        Math.round(
-            average
-        );
+        Math.round(average);
 
 
     const starHTML =
@@ -3387,8 +3472,7 @@ function renderReviews(
     `;
 
 
-    list.innerHTML =
-        "";
+    list.innerHTML = "";
 
 
     reviews.forEach(
@@ -3430,7 +3514,9 @@ function renderReviews(
             item.innerHTML = `
 
                 <div class="review-name">
-                    👤 ${escapeHTML(review.name)}
+                    👤 ${escapeHTML(
+                        review.name
+                    )}
                 </div>
 
                 <div class="stars">
@@ -3438,97 +3524,126 @@ function renderReviews(
                 </div>
 
                 <div class="review-date">
-                    ${formatDate(review.time)}
+                    ${formatDate(
+                        review.time
+                    )}
                 </div>
 
                 <div class="review-text">
-                    ${escapeHTML(review.text)}
+                    ${escapeHTML(
+                        review.text
+                    )}
                 </div>
 
             `;
 
 
-            /**************************************
-             * ẢNH
-             **************************************/
+            /******************************************
+             * ẢNH KHÁCH HÀNG
+             ******************************************/
 
             if (
                 review.images &&
                 Array.isArray(
                     review.images
-                ) &&
-                review.images.length
+                )
             ) {
 
-                const media =
-                    document.createElement(
-                        "div"
+                const validImages =
+                    review.images
+                        .map(
+                            normalizeImageUrl
+                        )
+                        .filter(
+                            function(url) {
+                                return !!url;
+                            }
+                        );
+
+
+                if (
+                    validImages.length > 0
+                ) {
+
+                    const media =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    media.className =
+                        "review-media";
+
+
+                    validImages.forEach(
+                        function(imageUrl) {
+
+                            const img =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            img.src =
+                                imageUrl;
+
+
+                            img.alt =
+                                "Ảnh khách hàng";
+
+
+                            img.loading =
+                                "lazy";
+
+
+                            img.onerror =
+                                function() {
+
+                                    this.style.display =
+                                        "none";
+
+                                };
+
+
+                            img.onclick =
+                                function() {
+
+                                    window.open(
+                                        imageUrl,
+                                        "_blank"
+                                    );
+
+                                };
+
+
+                            media.appendChild(
+                                img
+                            );
+
+                        }
                     );
 
 
-                media.className =
-                    "review-media";
+                    item.appendChild(
+                        media
+                    );
 
-
-                review.images.forEach(
-                    function(imageUrl) {
-
-                        if (!imageUrl) {
-                            return;
-                        }
-
-
-                        const img =
-                            document.createElement(
-                                "img"
-                            );
-
-
-                        img.src =
-                            imageUrl;
-
-
-                        img.alt =
-                            "Ảnh khách hàng";
-
-
-                        img.loading =
-                            "lazy";
-
-
-                        img.onclick =
-                            function() {
-
-                                window.open(
-                                    imageUrl,
-                                    "_blank"
-                                );
-
-                            };
-
-
-                        media.appendChild(
-                            img
-                        );
-
-                    }
-                );
-
-
-                item.appendChild(
-                    media
-                );
+                }
 
             }
 
 
-            /**************************************
-             * VIDEO
-             **************************************/
+            /******************************************
+             * VIDEO KHÁCH HÀNG
+             ******************************************/
 
-            if (
-                review.video
-            ) {
+            const videoUrl =
+                normalizeVideoUrl(
+                    review.video
+                );
+
+
+            if (videoUrl) {
 
                 const media =
                     document.createElement(
@@ -3551,7 +3666,7 @@ function renderReviews(
 
 
                 iframe.src =
-                    review.video;
+                    videoUrl;
 
 
                 iframe.title =
@@ -3559,13 +3674,17 @@ function renderReviews(
 
 
                 iframe.allow =
-                    "autoplay";
+                    "autoplay; fullscreen";
 
 
                 iframe.setAttribute(
                     "allowfullscreen",
                     ""
                 );
+
+
+                iframe.loading =
+                    "lazy";
 
 
                 media.appendChild(
@@ -3646,9 +3765,7 @@ function formatDate(
     try {
 
         const date =
-            new Date(
-                value
-            );
+            new Date(value);
 
 
         if (
@@ -3657,9 +3774,7 @@ function formatDate(
             )
         ) {
 
-            return String(
-                value
-            );
+            return String(value);
 
         }
 
@@ -3683,9 +3798,7 @@ function formatDate(
 
     } catch (error) {
 
-        return String(
-            value
-        );
+        return String(value);
 
     }
 
@@ -3741,9 +3854,7 @@ window.addEventListener(
 
 renderProducts();
 
-selectReviewStar(
-    5
-);
+selectReviewStar(5);
 
 </script>
 
