@@ -1,715 +1,1444 @@
 <!DOCTYPE html>
-
 <html lang="vi">
 
 <head>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta
- name="google-site-verification"
- content="AjQAgOhXPGYivESrAYvGNyToMzD2kwKToez4CmSoJAs"
-/>
-
-<title>Chichi - Len Handmade</title>
-
-<style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fff8fb;
-    color: #5b4149;
-}
-
-/* ================= HEADER ================= */
-
-header {
-    background: linear-gradient(135deg,#ffdce8,#f7bfd3);
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.logo {
-    width: 125px;
-    height: 125px;
-    margin: auto;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 65px;
-    box-shadow: 0 6px 20px rgba(180,100,130,.15);
-}
-
-header h1 {
-    margin: 18px 0 8px;
-    font-size: 46px;
-    color: #b84f73;
-}
-
-header p {
-    font-size: 18px;
-}
-
-/* ================= INTRO ================= */
-
-.intro {
-    text-align: center;
-    padding: 35px 20px 10px;
-}
-
-.intro h2 {
-    color: #a94d6d;
-    font-size: 28px;
-}
-
-.intro p {
-    color: #8c7078;
-}
-
-/* ================= PRODUCTS ================= */
-
-.products {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    padding: 30px 20px 60px;
-}
-
-.product {
-    width: 270px;
-    background: white;
-    padding: 25px;
-    border-radius: 24px;
-    text-align: center;
-    box-shadow: 0 7px 22px rgba(180,100,130,.12);
-    transition: .3s;
-}
-
-.product:hover {
-    transform: translateY(-7px);
-}
-
-.product-image {
-    width: 170px;
-    height: 170px;
-    margin: auto;
-    background: #fff0f5;
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 85px;
-}
-
-.product h3 {
-    font-size: 21px;
-    margin: 18px 0 10px;
-}
-
-.price {
-    color: #d2577c;
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.product-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-button {
-    border: none;
-    background: #d9688b;
-    color: white;
-    padding: 12px 22px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: .2s;
-}
-
-button:hover {
-    background: #bd4f72;
-    transform: scale(1.04);
-}
-
-.buy-button {
-    background: #e56b91;
-}
-
-.detail-button {
-    background: #c77a95;
-}
-
-/* ================= MODAL ================= */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(80,40,50,.55);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 999;
-    overflow-y: auto;
-}
-
-.modal-box {
-    background: white;
-    width: 100%;
-    max-width: 700px;
-    max-height: 92vh;
-    overflow-y: auto;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 10px 35px rgba(0,0,0,.2);
-}
-
-.modal-box h2 {
-    color: #b84f73;
-    margin-top: 0;
-}
-
-.close-x {
-    float: right;
-    background: #eee;
-    color: #555;
-    padding: 7px 13px;
-}
-
-.close-x:hover {
-    background: #ddd;
-}
-
-/* ================= FORM ================= */
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #f0c8d5;
-    border-radius: 12px;
-    font-size: 15px;
-    outline: none;
-}
-
-textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-input:focus,
-textarea:focus {
-    border-color: #d9688b;
-}
-
-/* ================= PRODUCT DETAIL ================= */
-
-.detail-product {
-    text-align: center;
-    padding: 10px;
-}
-
-.detail-icon {
-    font-size: 100px;
-    background: #fff0f5;
-    border-radius: 25px;
-    padding: 25px;
-    margin-bottom: 15px;
-}
-
-.detail-price {
-    color: #d2577c;
-    font-size: 27px;
-    font-weight: bold;
-}
-
-.detail-description {
-    color: #80666f;
-    line-height: 1.7;
-    margin: 15px auto;
-    max-width: 500px;
-}
-
-/* ================= REVIEWS ================= */
-
-.reviews {
-    margin-top: 30px;
-    border-top: 1px solid #f3d5df;
-    padding-top: 25px;
-}
-
-.review-summary {
-    background: #fff5f8;
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.average-number {
-    font-size: 42px;
-    font-weight: bold;
-    color: #d2577c;
-}
-
-.stars {
-    color: #f5ad2a;
-    font-size: 22px;
-    letter-spacing: 2px;
-}
-
-.review {
-    background: #fffafb;
-    border: 1px solid #f4dce4;
-    border-radius: 18px;
-    padding: 18px;
-    margin: 15px 0;
-}
-
-.review-name {
-    font-weight: bold;
-    color: #a94d6d;
-    font-size: 17px;
-}
-
-.review-date {
-    color: #999;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-.review-text {
-    margin-top: 10px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-}
-
-.review-media {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.review-media img {
-    width: 105px;
-    height: 105px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #f0d5df;
-    cursor: pointer;
-}
-
-.review-media img:hover {
-    transform: scale(1.03);
-}
-
-.review-media video {
-    width: 100%;
-    max-width: 420px;
-    border-radius: 12px;
-    background: #000;
-}
-
-.review-star-select {
-    display: flex;
-    gap: 3px;
-    margin: 10px 0;
-}
-
-.review-star-select button {
-    background: transparent;
-    color: #ccc;
-    padding: 3px;
-    font-size: 32px;
-}
-
-.review-star-select button.active {
-    color: #f5ad2a;
-}
-
-.review-form-box {
-    background: #fff8fb;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-}
-
-.file-note {
-    font-size: 13px;
-    color: #8d737b;
-    margin: 5px 0 12px;
-}
-
-/* ================= PREVIEW ================= */
-
-#reviewPreview {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-#reviewPreview img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-#reviewPreview video {
-    width: 180px;
-    max-height: 130px;
-    border-radius: 12px;
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-    background: #f8d3df;
-    text-align: center;
-    padding: 30px 20px;
-    line-height: 1.7;
-}
-
-.loading {
-    text-align: center;
-    color: #999;
-    padding: 20px;
-}
-
-.empty {
-    text-align: center;
-    color: #999;
-    padding: 20px;
-}
-
-.success-message {
-    background: #eaf8ef;
-    color: #267342;
-    padding: 12px;
-    border-radius: 12px;
-    margin-top: 15px;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:600px) {
-
-    header h1 {
-        font-size: 38px;
-    }
-
-    .product {
-        width: 100%;
-        max-width: 330px;
-    }
-
-    .modal-box {
-        padding: 20px;
-    }
-
-    .detail-icon {
-        font-size: 75px;
-    }
-
-    .review-media img {
-        width: 85px;
-        height: 85px;
-    }
-
-}
-
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="google-site-verification"
+        content="AjQAgOhXPGYivESrAYvGNyToMzD2kwKToez4CmSoJAs"
+    >
+
+    <title>Chichi - Len Handmade</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background:
+                #fff8fb;
+
+            color:
+                #5b4149;
+
+        }
+
+
+        header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffdce8,
+                    #f7bfd3
+                );
+
+            text-align:
+                center;
+
+            padding:
+                50px 20px;
+
+        }
+
+
+        .logo {
+
+            width:
+                125px;
+
+            height:
+                125px;
+
+            margin:
+                auto;
+
+            background:
+                white;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                65px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(
+                    180,
+                    100,
+                    130,
+                    .15
+                );
+
+        }
+
+
+        header h1 {
+
+            margin:
+                18px 0 8px;
+
+            font-size:
+                46px;
+
+            color:
+                #b84f73;
+
+        }
+
+
+        header p {
+
+            font-size:
+                18px;
+
+        }
+
+
+        .intro {
+
+            text-align:
+                center;
+
+            padding:
+                35px 20px 10px;
+
+        }
+
+
+        .intro h2 {
+
+            color:
+                #a94d6d;
+
+            font-size:
+                28px;
+
+        }
+
+
+        .intro p {
+
+            color:
+                #8c7078;
+
+        }
+
+
+        .products {
+
+            display:
+                flex;
+
+            justify-content:
+                center;
+
+            gap:
+                25px;
+
+            flex-wrap:
+                wrap;
+
+            padding:
+                30px 20px 60px;
+
+        }
+
+
+        .product {
+
+            width:
+                270px;
+
+            background:
+                white;
+
+            padding:
+                25px;
+
+            border-radius:
+                24px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 7px 22px
+                rgba(
+                    180,
+                    100,
+                    130,
+                    .12
+                );
+
+            transition:
+                .3s;
+
+        }
+
+
+        .product:hover {
+
+            transform:
+                translateY(-7px);
+
+        }
+
+
+        .product-image {
+
+            width:
+                170px;
+
+            height:
+                170px;
+
+            margin:
+                auto;
+
+            background:
+                #fff0f5;
+
+            border-radius:
+                22px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                85px;
+
+        }
+
+
+        .product h3 {
+
+            font-size:
+                21px;
+
+            margin:
+                18px 0 10px;
+
+        }
+
+
+        .price {
+
+            color:
+                #d2577c;
+
+            font-size:
+                21px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .product-buttons {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            justify-content:
+                center;
+
+            flex-wrap:
+                wrap;
+
+        }
+
+
+        button {
+
+            border:
+                none;
+
+            background:
+                #d9688b;
+
+            color:
+                white;
+
+            padding:
+                12px 22px;
+
+            border-radius:
+                25px;
+
+            font-size:
+                16px;
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s;
+
+        }
+
+
+        button:hover {
+
+            background:
+                #bd4f72;
+
+            transform:
+                scale(1.04);
+
+        }
+
+
+        button:disabled {
+
+            opacity:
+                .6;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+
+        }
+
+
+        .buy-button {
+
+            background:
+                #e56b91;
+
+        }
+
+
+        .detail-button {
+
+            background:
+                #c77a95;
+
+        }
+
+
+        .modal {
+
+            display:
+                none;
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(
+                    80,
+                    40,
+                    50,
+                    .55
+                );
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            padding:
+                20px;
+
+            z-index:
+                999;
+
+            overflow-y:
+                auto;
+
+        }
+
+
+        .modal-box {
+
+            background:
+                white;
+
+            width:
+                100%;
+
+            max-width:
+                700px;
+
+            max-height:
+                92vh;
+
+            overflow-y:
+                auto;
+
+            padding:
+                30px;
+
+            border-radius:
+                25px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .2
+                );
+
+        }
+
+
+        .modal-box h2 {
+
+            color:
+                #b84f73;
+
+            margin-top:
+                0;
+
+        }
+
+
+        .close-x {
+
+            float:
+                right;
+
+            background:
+                #eee;
+
+            color:
+                #555;
+
+            padding:
+                7px 13px;
+
+        }
+
+
+        .close-x:hover {
+
+            background:
+                #ddd;
+
+        }
+
+
+        input,
+        textarea,
+        select {
+
+            width:
+                100%;
+
+            padding:
+                12px;
+
+            margin:
+                8px 0;
+
+            border:
+                1px solid
+                #f0c8d5;
+
+            border-radius:
+                12px;
+
+            font-size:
+                15px;
+
+            outline:
+                none;
+
+        }
+
+
+        textarea {
+
+            min-height:
+                90px;
+
+            resize:
+                vertical;
+
+        }
+
+
+        input:focus,
+        textarea:focus {
+
+            border-color:
+                #d9688b;
+
+        }
+
+
+        .detail-product {
+
+            text-align:
+                center;
+
+            padding:
+                10px;
+
+        }
+
+
+        .detail-icon {
+
+            font-size:
+                100px;
+
+            background:
+                #fff0f5;
+
+            border-radius:
+                25px;
+
+            padding:
+                25px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .detail-price {
+
+            color:
+                #d2577c;
+
+            font-size:
+                27px;
+
+            font-weight:
+                bold;
+
+        }
+
+
+        .detail-description {
+
+            color:
+                #80666f;
+
+            line-height:
+                1.7;
+
+            margin:
+                15px auto;
+
+            max-width:
+                500px;
+
+        }
+
+
+        .reviews {
+
+            margin-top:
+                30px;
+
+            border-top:
+                1px solid
+                #f3d5df;
+
+            padding-top:
+                25px;
+
+        }
+
+
+        .review-summary {
+
+            background:
+                #fff5f8;
+
+            border-radius:
+                20px;
+
+            padding:
+                20px;
+
+            text-align:
+                center;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .average-number {
+
+            font-size:
+                42px;
+
+            font-weight:
+                bold;
+
+            color:
+                #d2577c;
+
+        }
+
+
+        .stars {
+
+            color:
+                #f5ad2a;
+
+            font-size:
+                22px;
+
+            letter-spacing:
+                2px;
+
+        }
+
+
+        .review {
+
+            background:
+                #fffafb;
+
+            border:
+                1px solid
+                #f4dce4;
+
+            border-radius:
+                18px;
+
+            padding:
+                18px;
+
+            margin:
+                15px 0;
+
+        }
+
+
+        .review-name {
+
+            font-weight:
+                bold;
+
+            color:
+                #a94d6d;
+
+            font-size:
+                17px;
+
+        }
+
+
+        .review-date {
+
+            color:
+                #999;
+
+            font-size:
+                13px;
+
+            margin-top:
+                5px;
+
+        }
+
+
+        .review-text {
+
+            margin-top:
+                10px;
+
+            line-height:
+                1.6;
+
+            white-space:
+                pre-wrap;
+
+        }
+
+
+        .review-media {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                10px;
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .review-media img {
+
+            width:
+                105px;
+
+            height:
+                105px;
+
+            object-fit:
+                cover;
+
+            border-radius:
+                12px;
+
+            border:
+                1px solid
+                #f0d5df;
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s;
+
+        }
+
+
+        .review-media img:hover {
+
+            transform:
+                scale(1.03);
+
+        }
+
+
+        .review-video-frame {
+
+            width:
+                100%;
+
+            max-width:
+                430px;
+
+            height:
+                300px;
+
+            border:
+                none;
+
+            border-radius:
+                12px;
+
+            background:
+                #000;
+
+        }
+
+
+        .review-star-select {
+
+            display:
+                flex;
+
+            gap:
+                3px;
+
+            margin:
+                10px 0;
+
+        }
+
+
+        .review-star-select button {
+
+            background:
+                transparent;
+
+            color:
+                #ccc;
+
+            padding:
+                3px;
+
+            font-size:
+                32px;
+
+        }
+
+
+        .review-star-select button.active {
+
+            color:
+                #f5ad2a;
+
+        }
+
+
+        .review-form-box {
+
+            background:
+                #fff8fb;
+
+            padding:
+                20px;
+
+            border-radius:
+                20px;
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .file-note {
+
+            font-size:
+                13px;
+
+            color:
+                #8d737b;
+
+            margin:
+                5px 0 12px;
+
+        }
+
+
+        #reviewPreview {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                10px;
+
+            margin-top:
+                10px;
+
+        }
+
+
+        #reviewPreview img {
+
+            width:
+                90px;
+
+            height:
+                90px;
+
+            object-fit:
+                cover;
+
+            border-radius:
+                12px;
+
+        }
+
+
+        #reviewPreview video {
+
+            width:
+                180px;
+
+            max-height:
+                130px;
+
+            border-radius:
+                12px;
+
+        }
+
+
+        footer {
+
+            background:
+                #f8d3df;
+
+            text-align:
+                center;
+
+            padding:
+                30px 20px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .loading {
+
+            text-align:
+                center;
+
+            color:
+                #999;
+
+            padding:
+                20px;
+
+        }
+
+
+        .empty {
+
+            text-align:
+                center;
+
+            color:
+                #999;
+
+            padding:
+                20px;
+
+        }
+
+
+        .success-message {
+
+            background:
+                #eaf8ef;
+
+            color:
+                #267342;
+
+            padding:
+                12px;
+
+            border-radius:
+                12px;
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .error-message {
+
+            background:
+                #fff0f0;
+
+            color:
+                #b33;
+
+            padding:
+                12px;
+
+            border-radius:
+                12px;
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .order-note {
+
+            background:
+                #fff5f8;
+
+            padding:
+                15px;
+
+            border-radius:
+                15px;
+
+            margin:
+                15px 0;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .private-note {
+
+            background:
+                #fff5f8;
+
+            color:
+                #8c7078;
+
+            padding:
+                10px 12px;
+
+            border-radius:
+                10px;
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        @media(max-width:600px) {
+
+            header h1 {
+
+                font-size:
+                    38px;
+
+            }
+
+
+            .product {
+
+                width:
+                    100%;
+
+                max-width:
+                    330px;
+
+            }
+
+
+            .modal-box {
+
+                padding:
+                    20px;
+
+            }
+
+
+            .detail-icon {
+
+                font-size:
+                    75px;
+
+            }
+
+
+            .review-media img {
+
+                width:
+                    85px;
+
+                height:
+                    85px;
+
+            }
+
+
+            .review-video-frame {
+
+                height:
+                    230px;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-<!-- ================= HEADER ================= -->
 
 <header>
 
-```
-<div class="logo">
-    🧶
-</div>
+    <div class="logo">
+        🧶
+    </div>
 
-<h1>
-    Chichi
-</h1>
+    <h1>
+        Chichi
+    </h1>
 
-<p>
-    Những món len nhỏ xinh được làm bằng đôi tay ❤️
-</p>
-```
+    <p>
+        Những món len nhỏ xinh được làm bằng đôi tay ❤️
+    </p>
 
 </header>
 
-<!-- ================= INTRO ================= -->
 
 <section class="intro">
 
-```
-<h2>
-    🌷 Sản phẩm của Chichi
-</h2>
+    <h2>
+        🌷 Sản phẩm của Chichi
+    </h2>
 
-<p>
-    Một chút đáng yêu dành cho bạn 💕
-</p>
-```
+    <p>
+        Một chút đáng yêu dành cho bạn 💕
+    </p>
 
 </section>
 
-<!-- ================= PRODUCTS ================= -->
 
 <section
     class="products"
     id="products"
->
-</section>
+></section>
 
-<!-- ================= PRODUCT DETAIL ================= -->
+
+<!-- ================= CHI TIẾT SẢN PHẨM ================= -->
 
 <div
     class="modal"
     id="detailModal"
 >
 
-```
-<div class="modal-box">
+    <div class="modal-box">
 
-    <button
-        class="close-x"
-        onclick="closeDetail()"
-    >
-        ✕
-    </button>
-
-    <div id="detailContent"></div>
-
-    <div class="reviews">
-
-        <h2>
-            ⭐ Đánh giá của khách hàng
-        </h2>
-
-        <div
-            class="review-summary"
-            id="reviewSummary"
+        <button
+            class="close-x"
+            onclick="closeDetail()"
         >
-            Đang tải đánh giá...
-        </div>
+            ✕
+        </button>
 
-        <!-- FORM ĐÁNH GIÁ -->
 
-        <div class="review-form-box">
+        <div id="detailContent"></div>
 
-            <h3>
-                💕 Bạn đã mua sản phẩm? Hãy để lại đánh giá nhé!
-            </h3>
 
-            <input
-                id="reviewName"
-                type="text"
-                placeholder="Tên của bạn"
-                maxlength="100"
-            >
+        <div class="reviews">
 
-            <div>
-                <strong>Đánh giá:</strong>
-            </div>
+            <h2>
+                ⭐ Đánh giá của khách hàng
+            </h2>
+
 
             <div
-                class="review-star-select"
-                id="reviewStarSelect"
+                class="review-summary"
+                id="reviewSummary"
             >
+                Đang tải đánh giá...
+            </div>
 
-                <button onclick="selectReviewStar(1)">★</button>
-                <button onclick="selectReviewStar(2)">★</button>
-                <button onclick="selectReviewStar(3)">★</button>
-                <button onclick="selectReviewStar(4)">★</button>
-                <button onclick="selectReviewStar(5)">★</button>
+
+            <!-- FORM ĐÁNH GIÁ -->
+
+            <div class="review-form-box">
+
+                <h3>
+                    💕 Bạn đã mua sản phẩm? Hãy để lại đánh giá nhé!
+                </h3>
+
+
+                <div class="private-note">
+
+                    🔒 Số điện thoại và địa chỉ chỉ được lưu để quản lý đơn/đánh giá.
+                    Những thông tin này không hiển thị công khai.
+
+                </div>
+
+
+                <input
+                    id="reviewName"
+                    type="text"
+                    placeholder="Tên của bạn"
+                    maxlength="100"
+                >
+
+
+                <input
+                    id="reviewPhone"
+                    type="tel"
+                    placeholder="Số điện thoại"
+                    maxlength="30"
+                >
+
+
+                <textarea
+                    id="reviewAddress"
+                    placeholder="Địa chỉ nhận hàng"
+                    maxlength="300"
+                ></textarea>
+
+
+                <div>
+
+                    <strong>
+                        Đánh giá:
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="review-star-select"
+                    id="reviewStarSelect"
+                >
+
+                    <button
+                        type="button"
+                        onclick="selectReviewStar(1)"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="selectReviewStar(2)"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="selectReviewStar(3)"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="selectReviewStar(4)"
+                    >
+                        ★
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="selectReviewStar(5)"
+                    >
+                        ★
+                    </button>
+
+                </div>
+
+
+                <textarea
+                    id="reviewText"
+                    placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm nhé 💕"
+                    maxlength="2000"
+                ></textarea>
+
+
+                <label>
+                    📸 Thêm ảnh (tối đa 6 ảnh)
+                </label>
+
+
+                <input
+                    type="file"
+                    id="reviewImages"
+                    accept="image/*"
+                    multiple
+                    onchange="previewReviewMedia()"
+                >
+
+
+                <div class="file-note">
+
+                    Tối đa 6 ảnh.
+                    Ảnh sẽ được tự động nén để tải nhanh hơn.
+
+                </div>
+
+
+                <label>
+                    🎥 Thêm video (tối đa 1 video)
+                </label>
+
+
+                <input
+                    type="file"
+                    id="reviewVideo"
+                    accept="video/*"
+                    onchange="previewReviewMedia()"
+                >
+
+
+                <div class="file-note">
+
+                    Video tối đa 5MB.
+
+                </div>
+
+
+                <div id="reviewPreview"></div>
+
+
+                <br>
+
+
+                <button
+                    onclick="submitReview()"
+                    id="submitReviewButton"
+                >
+                    ⭐ Gửi đánh giá
+                </button>
+
+
+                <div id="reviewMessage"></div>
 
             </div>
 
-            <textarea
-                id="reviewText"
-                placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm nhé 💕"
-                maxlength="2000"
-            ></textarea>
 
-            <label>
-                📸 Thêm ảnh (tối đa 6 ảnh)
-            </label>
-
-            <input
-                type="file"
-                id="reviewImages"
-                accept="image/*"
-                multiple
-                onchange="previewReviewMedia()"
-            >
-
-            <div class="file-note">
-                Mỗi ảnh nên nhỏ hơn khoảng 800KB để tải nhanh hơn.
-            </div>
-
-            <label>
-                🎥 Thêm video (tối đa 1 video)
-            </label>
-
-            <input
-                type="file"
-                id="reviewVideo"
-                accept="video/*"
-                onchange="previewReviewMedia()"
-            >
-
-            <div class="file-note">
-                Video tối đa 5MB.
-            </div>
-
-            <div id="reviewPreview"></div>
-
-            <br>
-
-            <button
-                onclick="submitReview()"
-                id="submitReviewButton"
-            >
-                ⭐ Gửi đánh giá
-            </button>
-
-            <div id="reviewMessage"></div>
+            <div id="reviewList"></div>
 
         </div>
-
-        <!-- DANH SÁCH ĐÁNH GIÁ -->
-
-        <div id="reviewList"></div>
 
     </div>
 
 </div>
-```
 
-</div>
 
-<!-- ================= ORDER MODAL ================= -->
+<!-- ================= ĐẶT HÀNG ================= -->
 
 <div
     class="modal"
     id="orderModal"
 >
 
-```
-<div class="modal-box">
+    <div class="modal-box">
 
-    <button
-        class="close-x"
-        onclick="closeOrder()"
-    >
-        ✕
-    </button>
+        <button
+            class="close-x"
+            onclick="closeOrder()"
+        >
+            ✕
+        </button>
 
-    <h2>
-        💗 Đặt hàng Chichi
-    </h2>
 
-    <p id="selectedProduct"></p>
+        <h2>
+            💗 Đặt hàng Chichi
+        </h2>
 
-    <input
-        type="text"
-        id="customerName"
-        placeholder="Tên của bạn"
-    >
 
-    <input
-        type="tel"
-        id="customerPhone"
-        placeholder="Số điện thoại"
-    >
+        <div
+            class="order-note"
+            id="selectedProduct"
+        ></div>
 
-    <textarea
-        id="customerAddress"
-        placeholder="Địa chỉ nhận hàng"
-    ></textarea>
 
-    <label>
-        Số lượng
-    </label>
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Tên của bạn"
+        >
 
-    <input
-        type="number"
-        id="customerQuantity"
-        min="1"
-        value="1"
-    >
 
-    <br><br>
+        <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Số điện thoại"
+        >
 
-    <button
-        onclick="submitOrder()"
-    >
-        💕 Gửi đơn hàng
-    </button>
+
+        <textarea
+            id="customerAddress"
+            placeholder="Địa chỉ nhận hàng"
+        ></textarea>
+
+
+        <label>
+            Số lượng
+        </label>
+
+
+        <input
+            type="number"
+            id="customerQuantity"
+            min="1"
+            value="1"
+        >
+
+
+        <br>
+        <br>
+
+
+        <button
+            onclick="submitOrder()"
+            id="submitOrderButton"
+        >
+            💕 Gửi đơn hàng
+        </button>
+
+
+        <div id="orderMessage"></div>
+
+    </div>
 
 </div>
-```
 
-</div>
-
-<!-- ================= FOOTER ================= -->
 
 <footer>
 
-```
-<strong>
-    Chichi Handmade 🧶💕
-</strong>
+    <strong>
+        Chichi Handmade 🧶💕
+    </strong>
 
-<br>
+    <br>
 
-Làm bằng tay, gửi bằng cả yêu thương.
+    Làm bằng tay, gửi bằng cả yêu thương.
 
-<br>
+    <br>
 
-© 2026 Chichi
-```
+    © 2026 Chichi
 
 </footer>
 
+
 <script>
 
-/* ======================================================
-   GOOGLE APPS SCRIPT - URL MỚI
-====================================================== */
+
+/****************************************************
+ * GOOGLE APPS SCRIPT
+ ****************************************************/
 
 const GOOGLE_SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbwLLDNHvuQfDOj54UJxuq-hkmvdQQe4rIwyH0GWAY9MzOT_k8rqX8pXnd9PENc3gay-sA/exec";
+    "https://script.google.com/macros/s/AKfycbwLLDNHvuQfDOj54UJxuq-hkmvdQQe4rIwyH0GWAY9MzOT_k8rqX8pXnd9PENc3gay-sA/exec";
 
 
-/* ======================================================
-   SẢN PHẨM
-====================================================== */
+/****************************************************
+ * SẢN PHẨM
+ ****************************************************/
 
 const products = [
 
@@ -719,7 +1448,7 @@ const products = [
         price: "129.000đ",
         icon: "🧸",
         description:
-        "Một chú gấu len nhỏ xinh được làm thủ công bằng tay. Phù hợp để làm quà tặng hoặc trang trí góc nhỏ của bạn 💕"
+            "Một chú gấu len nhỏ xinh được làm thủ công bằng tay. Phù hợp để làm quà tặng hoặc trang trí góc nhỏ của bạn 💕"
     },
 
     {
@@ -728,7 +1457,7 @@ const products = [
         price: "59.000đ",
         icon: "🌷",
         description:
-        "Bông hoa len handmade đáng yêu, có thể dùng để trang trí hoặc làm món quà nhỏ dành tặng người bạn yêu thương 🌷"
+            "Bông hoa len handmade đáng yêu, có thể dùng để trang trí hoặc làm món quà nhỏ dành tặng người bạn yêu thương 🌷"
     },
 
     {
@@ -737,15 +1466,15 @@ const products = [
         price: "39.000đ",
         icon: "🎀",
         description:
-        "Móc khóa len nhỏ xinh, nhẹ nhàng và đáng yêu. Có thể mang theo bên mình mỗi ngày 🎀"
+            "Móc khóa len nhỏ xinh, nhẹ nhàng và đáng yêu. Có thể mang theo bên mình mỗi ngày 🎀"
     }
 
 ];
 
 
-/* ======================================================
-   BIẾN
-====================================================== */
+/****************************************************
+ * BIẾN
+ ****************************************************/
 
 let currentProduct = null;
 
@@ -755,86 +1484,122 @@ let reviewImages = [];
 
 let reviewVideo = null;
 
+let selectedProduct = "";
 
-/* ======================================================
-   HIỂN THỊ SẢN PHẨM
-====================================================== */
+let selectedPrice = "";
+
+
+/****************************************************
+ * HIỂN THỊ SẢN PHẨM
+ ****************************************************/
 
 function renderProducts() {
 
     const container =
-        document.getElementById("products");
+        document.getElementById(
+            "products"
+        );
+
 
     container.innerHTML = "";
 
-    products.forEach(function(product) {
 
-        const card =
-            document.createElement("div");
+    products.forEach(
+        function(product) {
 
-        card.className = "product";
-
-        card.innerHTML = `
-
-            <div class="product-image">
-                ${product.icon}
-            </div>
-
-            <h3>
-                ${product.name}
-            </h3>
-
-            <p class="price">
-                ${product.price}
-            </p>
-
-            <div class="product-buttons">
-
-                <button
-                    class="detail-button"
-                >
-                    👀 Xem sản phẩm
-                </button>
-
-                <button
-                    class="buy-button"
-                >
-                    🛒 Mua ngay
-                </button>
-
-            </div>
-
-        `;
-
-        card
-            .querySelector(".detail-button")
-            .onclick = function() {
-                openDetail(product);
-            };
-
-        card
-            .querySelector(".buy-button")
-            .onclick = function() {
-                openOrder(
-                    product.name,
-                    product.price
+            const card =
+                document.createElement(
+                    "div"
                 );
-            };
 
-        container.appendChild(card);
 
-    });
+            card.className =
+                "product";
+
+
+            card.innerHTML = `
+
+                <div class="product-image">
+                    ${product.icon}
+                </div>
+
+                <h3>
+                    ${escapeHTML(product.name)}
+                </h3>
+
+                <p class="price">
+                    ${escapeHTML(product.price)}
+                </p>
+
+                <div class="product-buttons">
+
+                    <button
+                        class="detail-button"
+                        type="button"
+                    >
+                        👀 Xem sản phẩm
+                    </button>
+
+                    <button
+                        class="buy-button"
+                        type="button"
+                    >
+                        🛒 Mua ngay
+                    </button>
+
+                </div>
+
+            `;
+
+
+            card
+                .querySelector(
+                    ".detail-button"
+                )
+                .onclick =
+                function() {
+
+                    openDetail(
+                        product
+                    );
+
+                };
+
+
+            card
+                .querySelector(
+                    ".buy-button"
+                )
+                .onclick =
+                function() {
+
+                    openOrder(
+                        product.name,
+                        product.price
+                    );
+
+                };
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
 
 }
 
 
-/* ======================================================
-   MỞ CHI TIẾT
-====================================================== */
+/****************************************************
+ * MỞ CHI TIẾT
+ ****************************************************/
 
 function openDetail(product) {
 
-    currentProduct = product;
+    currentProduct =
+        product;
+
 
     document.getElementById(
         "detailContent"
@@ -847,18 +1612,19 @@ function openDetail(product) {
             </div>
 
             <h2>
-                ${product.name}
+                ${escapeHTML(product.name)}
             </h2>
 
             <div class="detail-price">
-                ${product.price}
+                ${escapeHTML(product.price)}
             </div>
 
             <div class="detail-description">
-                ${product.description}
+                ${escapeHTML(product.description)}
             </div>
 
             <button
+                type="button"
                 onclick="openOrderFromDetail()"
             >
                 🛒 Mua sản phẩm này
@@ -868,9 +1634,12 @@ function openDetail(product) {
 
     `;
 
+
     document.getElementById(
         "detailModal"
-    ).style.display = "flex";
+    ).style.display =
+        "flex";
+
 
     resetReviewForm();
 
@@ -879,26 +1648,33 @@ function openDetail(product) {
 }
 
 
-/* ======================================================
-   ĐÓNG CHI TIẾT
-====================================================== */
+/****************************************************
+ * ĐÓNG CHI TIẾT
+ ****************************************************/
 
 function closeDetail() {
 
     document.getElementById(
         "detailModal"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 }
 
 
-/* ======================================================
-   MỞ ĐẶT HÀNG TỪ CHI TIẾT
-====================================================== */
+/****************************************************
+ * MỞ ĐẶT HÀNG TỪ CHI TIẾT
+ ****************************************************/
 
 function openOrderFromDetail() {
 
+    if (!currentProduct) {
+        return;
+    }
+
+
     closeDetail();
+
 
     openOrder(
         currentProduct.name,
@@ -908,44 +1684,184 @@ function openOrderFromDetail() {
 }
 
 
-/* ======================================================
-   ĐẶT HÀNG
-====================================================== */
+/****************************************************
+ * ĐỌC THÔNG TIN KHÁCH ĐÃ LƯU
+ ****************************************************/
 
-let selectedProduct = "";
+function loadSavedCustomer() {
 
-let selectedPrice = "";
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "chichiCustomer"
+            );
 
 
-function openOrder(product, price) {
+        if (!saved) {
+            return null;
+        }
 
-    selectedProduct = product;
 
-    selectedPrice = price;
+        const customer =
+            JSON.parse(
+                saved
+            );
+
+
+        if (
+            !customer ||
+            typeof customer !== "object"
+        ) {
+
+            return null;
+
+        }
+
+
+        return customer;
+
+    } catch (error) {
+
+        console.log(
+            "Không đọc được thông tin khách:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/****************************************************
+ * LƯU THÔNG TIN KHÁCH
+ ****************************************************/
+
+function saveCustomer(
+    name,
+    phone,
+    address
+) {
+
+    try {
+
+        localStorage.setItem(
+            "chichiCustomer",
+            JSON.stringify({
+
+                name:
+                    name,
+
+                phone:
+                    phone,
+
+                address:
+                    address
+
+            })
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Không lưu được thông tin khách:",
+            error
+        );
+
+    }
+
+}
+
+
+/****************************************************
+ * MỞ FORM ĐẶT HÀNG
+ ****************************************************/
+
+function openOrder(
+    product,
+    price
+) {
+
+    selectedProduct =
+        product;
+
+    selectedPrice =
+        price;
+
 
     document.getElementById(
         "selectedProduct"
     ).innerHTML =
+
         "Bạn đang đặt: <strong>" +
-        escapeHTML(product) +
-        "</strong> - " +
-        escapeHTML(price);
+
+        escapeHTML(
+            product
+        ) +
+
+        "</strong><br>Giá: " +
+
+        escapeHTML(
+            price
+        );
+
+
+    const customer =
+        loadSavedCustomer();
+
+
+    if (customer) {
+
+        document.getElementById(
+            "customerName"
+        ).value =
+            customer.name ||
+            "";
+
+
+        document.getElementById(
+            "customerPhone"
+        ).value =
+            customer.phone ||
+            "";
+
+
+        document.getElementById(
+            "customerAddress"
+        ).value =
+            customer.address ||
+            "";
+
+    }
+
 
     document.getElementById(
         "orderModal"
-    ).style.display = "flex";
+    ).style.display =
+        "flex";
 
 }
 
+
+/****************************************************
+ * ĐÓNG ĐẶT HÀNG
+ ****************************************************/
 
 function closeOrder() {
 
     document.getElementById(
         "orderModal"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 }
 
+
+/****************************************************
+ * GỬI ĐƠN HÀNG
+ ****************************************************/
 
 function submitOrder() {
 
@@ -954,15 +1870,18 @@ function submitOrder() {
             "customerName"
         ).value.trim();
 
+
     const phone =
         document.getElementById(
             "customerPhone"
         ).value.trim();
 
+
     const address =
         document.getElementById(
             "customerAddress"
         ).value.trim();
+
 
     const quantity =
         Number(
@@ -972,10 +1891,14 @@ function submitOrder() {
         );
 
 
-    if (!name || !phone || !address) {
+    if (
+        !name ||
+        !phone ||
+        !address
+    ) {
 
         alert(
-            "Bạn hãy điền đầy đủ thông tin nhé ❤️"
+            "💕 Bạn hãy điền đầy đủ thông tin nhé!"
         );
 
         return;
@@ -983,15 +1906,50 @@ function submitOrder() {
     }
 
 
-    if (!quantity || quantity < 1) {
+    if (
+        !quantity ||
+        quantity < 1
+    ) {
 
         alert(
-            "Số lượng phải từ 1 sản phẩm trở lên nhé ❤️"
+            "💕 Số lượng phải từ 1 sản phẩm trở lên nhé!"
         );
 
         return;
 
     }
+
+
+    if (!selectedProduct) {
+
+        alert(
+            "❌ Chưa chọn sản phẩm."
+        );
+
+        return;
+
+    }
+
+
+    saveCustomer(
+        name,
+        phone,
+        address
+    );
+
+
+    const button =
+        document.getElementById(
+            "submitOrderButton"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.innerText =
+        "⏳ Đang gửi...";
 
 
     const formData =
@@ -1003,30 +1961,36 @@ function submitOrder() {
         "order"
     );
 
+
     formData.append(
         "name",
         name
     );
+
 
     formData.append(
         "phone",
         phone
     );
 
+
     formData.append(
         "address",
         address
     );
+
 
     formData.append(
         "product",
         selectedProduct
     );
 
+
     formData.append(
         "price",
         selectedPrice
     );
+
 
     formData.append(
         "quantity",
@@ -1034,87 +1998,112 @@ function submitOrder() {
     );
 
 
-    alert(
-        "⏳ Chichi đang gửi đơn hàng..."
-    );
-
-
     fetch(
         GOOGLE_SCRIPT_URL,
         {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
+
+            method:
+                "POST",
+
+            mode:
+                "no-cors",
+
+            body:
+                formData
+
         }
     )
+    .then(
+        function() {
 
-    .then(function() {
+            alert(
 
-        alert(
-            "🎉 Đặt hàng thành công!\n\n" +
-            "Sản phẩm: " +
-            selectedProduct +
-            "\nSố lượng: " +
-            quantity +
-            "\nGiá: " +
-            selectedPrice +
-            "\n\nCảm ơn " +
-            name +
-            " đã ủng hộ Chichi ❤️"
-        );
+                "🎉 Đặt hàng thành công!\n\n" +
+
+                "Sản phẩm: " +
+                selectedProduct +
+
+                "\nSố lượng: " +
+                quantity +
+
+                "\nGiá: " +
+                selectedPrice +
+
+                "\n\nCảm ơn " +
+                name +
+                " đã ủng hộ Chichi ❤️"
+
+            );
 
 
-        document.getElementById(
-            "customerName"
-        ).value = "";
+            document.getElementById(
+                "customerQuantity"
+            ).value =
+                1;
 
-        document.getElementById(
-            "customerPhone"
-        ).value = "";
 
-        document.getElementById(
-            "customerAddress"
-        ).value = "";
+            closeOrder();
 
-        document.getElementById(
-            "customerQuantity"
-        ).value = 1;
+        }
+    )
+    .catch(
+        function(error) {
 
-        closeOrder();
+            console.error(
+                "Lỗi gửi đơn hàng:",
+                error
+            );
 
-    })
 
-    .catch(function(error) {
+            alert(
+                "❌ Không gửi được đơn hàng.\n\nBạn hãy thử lại nhé!"
+            );
 
-        console.error(error);
+        }
+    )
+    .finally(
+        function() {
 
-        alert(
-            "❌ Không gửi được đơn hàng.\n\n" +
-            "Bạn hãy thử lại nhé!"
-        );
+            button.disabled =
+                false;
 
-    });
+
+            button.innerText =
+                "💕 Gửi đơn hàng";
+
+        }
+    );
 
 }
 
 
-/* ======================================================
-   CHỌN SAO
-====================================================== */
+/****************************************************
+ * CHỌN SAO
+ ****************************************************/
 
-function selectReviewStar(star) {
+function selectReviewStar(
+    star
+) {
 
-    selectedReviewStar = star;
+    selectedReviewStar =
+        star;
+
 
     const buttons =
         document.querySelectorAll(
             "#reviewStarSelect button"
         );
 
-    buttons.forEach(
-        function(button, index) {
 
-            if (index < star) {
+    buttons.forEach(
+        function(
+            button,
+            index
+        ) {
+
+            if (
+                index < star
+            ) {
 
                 button.classList.add(
                     "active"
@@ -1134,9 +2123,9 @@ function selectReviewStar(star) {
 }
 
 
-/* ======================================================
-   PREVIEW ẢNH + VIDEO
-====================================================== */
+/****************************************************
+ * PREVIEW ẢNH / VIDEO
+ ****************************************************/
 
 function previewReviewMedia() {
 
@@ -1145,10 +2134,12 @@ function previewReviewMedia() {
             "reviewImages"
         );
 
+
     const videoInput =
         document.getElementById(
             "reviewVideo"
         );
+
 
     const preview =
         document.getElementById(
@@ -1156,7 +2147,8 @@ function previewReviewMedia() {
         );
 
 
-    preview.innerHTML = "";
+    preview.innerHTML =
+        "";
 
 
     reviewImages =
@@ -1165,40 +2157,60 @@ function previewReviewMedia() {
         );
 
 
-    reviewVideo =
-        videoInput.files &&
-        videoInput.files.length > 0
-        ? videoInput.files[0]
-        : null;
-
-
-    if (reviewImages.length > 6) {
+    if (
+        reviewImages.length > 6
+    ) {
 
         alert(
             "📸 Bạn chỉ được chọn tối đa 6 ảnh."
         );
 
-        imageInput.value = "";
 
-        reviewImages = [];
+        imageInput.value =
+            "";
+
+
+        reviewImages =
+            [];
 
     }
+
+
+    reviewVideo =
+        videoInput.files &&
+        videoInput.files.length > 0
+
+            ? videoInput.files[0]
+
+            : null;
 
 
     reviewImages.forEach(
         function(file) {
 
             const url =
-                URL.createObjectURL(file);
+                URL.createObjectURL(
+                    file
+                );
+
 
             const img =
-                document.createElement("img");
+                document.createElement(
+                    "img"
+                );
 
-            img.src = url;
 
-            img.alt = "Ảnh đánh giá";
+            img.src =
+                url;
 
-            preview.appendChild(img);
+
+            img.alt =
+                "Ảnh đánh giá";
+
+
+            preview.appendChild(
+                img
+            );
 
         }
     );
@@ -1206,147 +2218,209 @@ function previewReviewMedia() {
 
     if (reviewVideo) {
 
-        const url =
-            URL.createObjectURL(
-                reviewVideo
+        if (
+            reviewVideo.size >
+            5 * 1024 * 1024
+        ) {
+
+            alert(
+                "🎥 Video đang lớn hơn 5MB. Bạn hãy chọn video nhỏ hơn nhé."
             );
 
-        const video =
-            document.createElement("video");
 
-        video.src = url;
+            videoInput.value =
+                "";
 
-        video.controls = true;
 
-        preview.appendChild(video);
+            reviewVideo =
+                null;
+
+        } else {
+
+            const url =
+                URL.createObjectURL(
+                    reviewVideo
+                );
+
+
+            const video =
+                document.createElement(
+                    "video"
+                );
+
+
+            video.src =
+                url;
+
+
+            video.controls =
+                true;
+
+
+            preview.appendChild(
+                video
+            );
+
+        }
 
     }
 
 }
 
 
-/* ======================================================
-   NÉN ẢNH
-====================================================== */
+/****************************************************
+ * NÉN ẢNH
+ ****************************************************/
 
 function compressImage(file) {
 
     return new Promise(
-        function(resolve, reject) {
+        function(
+            resolve,
+            reject
+        ) {
 
             const reader =
                 new FileReader();
 
-            reader.onload = function(event) {
 
-                const img =
-                    new Image();
+            reader.onload =
+                function(event) {
 
-                img.onload = function() {
-
-                    const maxSize = 1200;
-
-                    let width =
-                        img.width;
-
-                    let height =
-                        img.height;
+                    const img =
+                        new Image();
 
 
-                    if (width > maxSize ||
-                        height > maxSize) {
+                    img.onload =
+                        function() {
 
-                        if (width > height) {
+                            const maxSize =
+                                1200;
 
-                            height =
-                                Math.round(
-                                    height *
-                                    maxSize /
-                                    width
-                                );
 
-                            width =
-                                maxSize;
+                            let width =
+                                img.width;
 
-                        } else {
 
-                            width =
-                                Math.round(
-                                    width *
-                                    maxSize /
+                            let height =
+                                img.height;
+
+
+                            if (
+                                width >
+                                    maxSize ||
+                                height >
+                                    maxSize
+                            ) {
+
+                                if (
+                                    width >
                                     height
-                                );
+                                ) {
 
-                            height =
-                                maxSize;
-
-                        }
-
-                    }
-
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-                    canvas.width = width;
-
-                    canvas.height = height;
+                                    height =
+                                        Math.round(
+                                            height *
+                                            maxSize /
+                                            width
+                                        );
 
 
-                    const ctx =
-                        canvas.getContext(
-                            "2d"
-                        );
+                                    width =
+                                        maxSize;
 
-                    ctx.drawImage(
-                        img,
-                        0,
-                        0,
-                        width,
-                        height
-                    );
+                                } else {
+
+                                    width =
+                                        Math.round(
+                                            width *
+                                            maxSize /
+                                            height
+                                        );
 
 
-                    canvas.toBlob(
-                        function(blob) {
+                                    height =
+                                        maxSize;
 
-                            if (!blob) {
-
-                                reject(
-                                    new Error(
-                                        "Không nén được ảnh"
-                                    )
-                                );
-
-                                return;
+                                }
 
                             }
 
-                            resolve(blob);
 
-                        },
-                        "image/jpeg",
-                        0.75
-                    );
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+
+                            canvas.height =
+                                height;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                img,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            canvas.toBlob(
+                                function(blob) {
+
+                                    if (!blob) {
+
+                                        reject(
+                                            new Error(
+                                                "Không nén được ảnh"
+                                            )
+                                        );
+
+                                        return;
+
+                                    }
+
+
+                                    resolve(
+                                        blob
+                                    );
+
+                                },
+                                "image/jpeg",
+                                0.70
+                            );
+
+                        };
+
+
+                    img.onerror =
+                        reject;
+
+
+                    img.src =
+                        event.target.result;
 
                 };
-
-
-                img.onerror =
-                    reject;
-
-                img.src =
-                    event.target.result;
-
-            };
 
 
             reader.onerror =
                 reject;
 
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(
+                file
+            );
 
         }
     );
@@ -1354,17 +2428,21 @@ function compressImage(file) {
 }
 
 
-/* ======================================================
-   FILE → BASE64
-====================================================== */
+/****************************************************
+ * FILE → BASE64
+ ****************************************************/
 
 function fileToBase64(file) {
 
     return new Promise(
-        function(resolve, reject) {
+        function(
+            resolve,
+            reject
+        ) {
 
             const reader =
                 new FileReader();
+
 
             reader.onload =
                 function() {
@@ -1372,17 +2450,31 @@ function fileToBase64(file) {
                     const result =
                         reader.result;
 
-                    const base64 =
-                        result.split(",")[1];
 
-                    resolve(base64);
+                    const parts =
+                        result.split(",");
+
+
+                    resolve(
+
+                        parts.length > 1
+
+                            ? parts[1]
+
+                            : ""
+
+                    );
 
                 };
+
 
             reader.onerror =
                 reject;
 
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(
+                file
+            );
 
         }
     );
@@ -1390,9 +2482,9 @@ function fileToBase64(file) {
 }
 
 
-/* ======================================================
-   GỬI ĐÁNH GIÁ
-====================================================== */
+/****************************************************
+ * GỬI ĐÁNH GIÁ
+ ****************************************************/
 
 async function submitReview() {
 
@@ -1413,6 +2505,18 @@ async function submitReview() {
         ).value.trim();
 
 
+    const phone =
+        document.getElementById(
+            "reviewPhone"
+        ).value.trim();
+
+
+    const address =
+        document.getElementById(
+            "reviewAddress"
+        ).value.trim();
+
+
     const text =
         document.getElementById(
             "reviewText"
@@ -1423,6 +2527,28 @@ async function submitReview() {
 
         alert(
             "💕 Bạn hãy nhập tên nhé!"
+        );
+
+        return;
+
+    }
+
+
+    if (!phone) {
+
+        alert(
+            "📱 Bạn hãy nhập số điện thoại nhé!"
+        );
+
+        return;
+
+    }
+
+
+    if (!address) {
+
+        alert(
+            "📍 Bạn hãy nhập địa chỉ nhé!"
         );
 
         return;
@@ -1455,7 +2581,9 @@ async function submitReview() {
     }
 
 
-    if (reviewImages.length > 6) {
+    if (
+        reviewImages.length > 6
+    ) {
 
         alert(
             "📸 Bạn chỉ có thể gửi tối đa 6 ảnh."
@@ -1487,7 +2615,9 @@ async function submitReview() {
         );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
+
 
     button.innerText =
         "⏳ Đang gửi...";
@@ -1496,13 +2626,23 @@ async function submitReview() {
     document.getElementById(
         "reviewMessage"
     ).innerHTML =
-        "<div class='loading'>Đang chuẩn bị ảnh và video... 💕</div>";
+
+        "<div class='loading'>" +
+
+        "⏳ Đang chuẩn bị ảnh và video... 💕" +
+
+        "</div>";
 
 
     try {
 
-        const images = [];
+        const images =
+            [];
 
+
+        /**************************************
+         * ẢNH
+         **************************************/
 
         for (
             let i = 0;
@@ -1512,6 +2652,25 @@ async function submitReview() {
 
             const originalFile =
                 reviewImages[i];
+
+
+            document.getElementById(
+                "reviewMessage"
+            ).innerHTML =
+
+                "<div class='loading'>" +
+
+                "📸 Đang xử lý ảnh " +
+
+                (i + 1) +
+
+                "/" +
+
+                reviewImages.length +
+
+                "..." +
+
+                "</div>";
 
 
             const compressedFile =
@@ -1530,6 +2689,8 @@ async function submitReview() {
 
                 name:
                     "anh-danh-gia-" +
+                    Date.now() +
+                    "-" +
                     (i + 1) +
                     ".jpg",
 
@@ -1544,10 +2705,26 @@ async function submitReview() {
         }
 
 
-        let video = null;
+        /**************************************
+         * VIDEO
+         **************************************/
+
+        let video =
+            null;
 
 
         if (reviewVideo) {
+
+            document.getElementById(
+                "reviewMessage"
+            ).innerHTML =
+
+                "<div class='loading'>" +
+
+                "🎥 Đang chuẩn bị video..." +
+
+                "</div>";
+
 
             const base64 =
                 await fileToBase64(
@@ -1572,73 +2749,183 @@ async function submitReview() {
         }
 
 
-        const reviewData = {
+        /**************************************
+         * LƯU THÔNG TIN KHÁCH
+         **************************************/
 
-            type: "review",
-
-            product:
-                currentProduct.name,
-
-            productId:
-                currentProduct.id,
-
-            name:
-                name,
-
-            stars:
-                selectedReviewStar,
-
-            text:
-                text,
-
-            images:
-                images,
-
-            video:
-                video
-
-        };
-
-
-        document.getElementById(
-            "reviewMessage"
-        ).innerHTML =
-            "<div class='loading'>⏳ Đang gửi đánh giá lên Chichi...</div>";
-
-
-        await fetch(
-
-            GOOGLE_SCRIPT_URL,
-
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-
-                },
-
-                body:
-                    JSON.stringify(
-                        reviewData
-                    )
-
-            }
-
+        saveCustomer(
+            name,
+            phone,
+            address
         );
 
 
-        resetReviewForm();
+        /**************************************
+         * FORM DATA
+         **************************************/
+
+        const formData =
+            new URLSearchParams();
+
+
+        formData.append(
+            "type",
+            "review"
+        );
+
+
+        formData.append(
+            "product",
+            currentProduct.name
+        );
+
+
+        formData.append(
+            "productId",
+            currentProduct.id
+        );
+
+
+        formData.append(
+            "name",
+            name
+        );
+
+
+        formData.append(
+            "phone",
+            phone
+        );
+
+
+        formData.append(
+            "address",
+            address
+        );
+
+
+        formData.append(
+            "stars",
+            String(
+                selectedReviewStar
+            )
+        );
+
+
+        formData.append(
+            "text",
+            text
+        );
+
+
+        formData.append(
+            "images",
+            JSON.stringify(
+                images
+            )
+        );
+
+
+        formData.append(
+            "video",
+            JSON.stringify(
+                video
+            )
+        );
 
 
         document.getElementById(
             "reviewMessage"
         ).innerHTML =
-            "<div class='success-message'>🎉 Cảm ơn bạn đã đánh giá Chichi! Đánh giá của bạn đã được gửi ❤️</div>";
 
+            "<div class='loading'>" +
+
+            "⏳ Đang gửi đánh giá lên Chichi... 💕" +
+
+            "</div>";
+
+
+        /**************************************
+         * GỬI APPS SCRIPT
+         **************************************/
+
+        await fetch(
+            GOOGLE_SCRIPT_URL,
+            {
+
+                method:
+                    "POST",
+
+                mode:
+                    "no-cors",
+
+                body:
+                    formData
+
+            }
+        );
+
+
+        /*
+         * no-cors không cho đọc response.
+         * Sau khi request được gửi,
+         * chờ Apps Script ghi dữ liệu.
+         */
+
+
+        document.getElementById(
+            "reviewMessage"
+        ).innerHTML =
+
+            "<div class='success-message'>" +
+
+            "🎉 Cảm ơn " +
+
+            escapeHTML(
+                name
+            ) +
+
+            " đã đánh giá Chichi!" +
+
+            "<br>" +
+
+            "❤️ Đánh giá của bạn đã được gửi." +
+
+            "</div>";
+
+
+        /*
+         * Xóa file.
+         */
+
+        reviewImages =
+            [];
+
+        reviewVideo =
+            null;
+
+
+        document.getElementById(
+            "reviewImages"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "reviewVideo"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "reviewPreview"
+        ).innerHTML =
+            "";
+
+
+        /*
+         * Sau 3 giây tải lại đánh giá.
+         */
 
         setTimeout(
             function() {
@@ -1646,7 +2933,7 @@ async function submitReview() {
                 loadReviews();
 
             },
-            1000
+            3000
         );
 
 
@@ -1661,18 +2948,23 @@ async function submitReview() {
         document.getElementById(
             "reviewMessage"
         ).innerHTML =
-            "<div class='empty'>❌ Không gửi được đánh giá. Nếu bạn gửi video, hãy thử video nhỏ hơn 5MB nhé.</div>";
 
+            "<div class='error-message'>" +
 
-        alert(
-            "❌ Không gửi được đánh giá.\n\n" +
-            "Bạn hãy thử lại với ảnh/video nhỏ hơn nhé!"
-        );
+            "❌ Không gửi được đánh giá." +
+
+            "<br>" +
+
+            "Bạn hãy thử lại với ảnh/video nhỏ hơn nhé." +
+
+            "</div>";
 
     }
 
 
-    button.disabled = false;
+    button.disabled =
+        false;
+
 
     button.innerText =
         "⭐ Gửi đánh giá";
@@ -1680,51 +2972,167 @@ async function submitReview() {
 }
 
 
-/* ======================================================
-   RESET FORM
-====================================================== */
+/****************************************************
+ * RESET FORM REVIEW
+ ****************************************************/
 
 function resetReviewForm() {
 
-    document.getElementById(
-        "reviewName"
-    ).value = "";
-
-    document.getElementById(
-        "reviewText"
-    ).value = "";
-
-    document.getElementById(
-        "reviewImages"
-    ).value = "";
-
-    document.getElementById(
-        "reviewVideo"
-    ).value = "";
-
-    document.getElementById(
-        "reviewPreview"
-    ).innerHTML = "";
-
-    document.getElementById(
-        "reviewMessage"
-    ).innerHTML = "";
+    const name =
+        document.getElementById(
+            "reviewName"
+        );
 
 
-    reviewImages = [];
+    const phone =
+        document.getElementById(
+            "reviewPhone"
+        );
 
-    reviewVideo = null;
 
-    selectedReviewStar = 5;
+    const address =
+        document.getElementById(
+            "reviewAddress"
+        );
 
-    selectReviewStar(5);
+
+    const text =
+        document.getElementById(
+            "reviewText"
+        );
+
+
+    const images =
+        document.getElementById(
+            "reviewImages"
+        );
+
+
+    const video =
+        document.getElementById(
+            "reviewVideo"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "reviewPreview"
+        );
+
+
+    const message =
+        document.getElementById(
+            "reviewMessage"
+        );
+
+
+    if (name) {
+        name.value = "";
+    }
+
+
+    if (phone) {
+        phone.value = "";
+    }
+
+
+    if (address) {
+        address.value = "";
+    }
+
+
+    if (text) {
+        text.value = "";
+    }
+
+
+    if (images) {
+        images.value = "";
+    }
+
+
+    if (video) {
+        video.value = "";
+    }
+
+
+    if (preview) {
+        preview.innerHTML = "";
+    }
+
+
+    if (message) {
+        message.innerHTML = "";
+    }
+
+
+    reviewImages =
+        [];
+
+
+    reviewVideo =
+        null;
+
+
+    selectedReviewStar =
+        5;
+
+
+    selectReviewStar(
+        5
+    );
+
+
+    /*
+     * Tự điền thông tin khách cũ.
+     */
+
+    const customer =
+        loadSavedCustomer();
+
+
+    if (customer) {
+
+        if (
+            name &&
+            customer.name
+        ) {
+
+            name.value =
+                customer.name;
+
+        }
+
+
+        if (
+            phone &&
+            customer.phone
+        ) {
+
+            phone.value =
+                customer.phone;
+
+        }
+
+
+        if (
+            address &&
+            customer.address
+        ) {
+
+            address.value =
+                customer.address;
+
+        }
+
+    }
 
 }
 
 
-/* ======================================================
-   TẠO JSONP CALLBACK
-====================================================== */
+/****************************************************
+ * TẢI REVIEW
+ ****************************************************/
 
 function loadReviews() {
 
@@ -1738,6 +3146,7 @@ function loadReviews() {
             "reviewSummary"
         );
 
+
     const list =
         document.getElementById(
             "reviewList"
@@ -1747,12 +3156,20 @@ function loadReviews() {
     summary.innerHTML =
         "⏳ Đang tải đánh giá...";
 
-    list.innerHTML = "";
+
+    list.innerHTML =
+        "";
 
 
     const callbackName =
         "chichiReviews_" +
         Date.now();
+
+
+    const script =
+        document.createElement(
+            "script"
+        );
 
 
     window[callbackName] =
@@ -1764,9 +3181,13 @@ function loadReviews() {
                     reviews
                 );
 
-            } catch(error) {
+            } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Lỗi hiển thị đánh giá:",
+                    error
+                );
+
 
                 summary.innerHTML =
                     "❌ Không hiển thị được đánh giá.";
@@ -1778,7 +3199,10 @@ function loadReviews() {
                 callbackName
             ];
 
-            if (script.parentNode) {
+
+            if (
+                script.parentNode
+            ) {
 
                 script.parentNode.removeChild(
                     script
@@ -1789,21 +3213,22 @@ function loadReviews() {
         };
 
 
-    const script =
-        document.createElement(
-            "script"
-        );
-
-
     script.src =
+
         GOOGLE_SCRIPT_URL +
+
         "?productId=" +
+
         encodeURIComponent(
             currentProduct.id
         ) +
+
         "&callback=" +
+
         callbackName +
+
         "&t=" +
+
         Date.now();
 
 
@@ -1811,15 +3236,26 @@ function loadReviews() {
         function() {
 
             summary.innerHTML =
-                "❌ Không tải được đánh giá. Hãy kiểm tra Web App Apps Script.";
+                "❌ Không tải được đánh giá.";
 
-            list.innerHTML = "";
+
+            list.innerHTML =
+
+                "<div class='empty'>" +
+
+                "Hãy kiểm tra lại Apps Script." +
+
+                "</div>";
+
 
             delete window[
                 callbackName
             ];
 
-            if (script.parentNode) {
+
+            if (
+                script.parentNode
+            ) {
 
                 script.parentNode.removeChild(
                     script
@@ -1837,16 +3273,19 @@ function loadReviews() {
 }
 
 
-/* ======================================================
-   HIỂN THỊ ĐÁNH GIÁ
-====================================================== */
+/****************************************************
+ * HIỂN THỊ REVIEW
+ ****************************************************/
 
-function renderReviews(reviews) {
+function renderReviews(
+    reviews
+) {
 
     const summary =
         document.getElementById(
             "reviewSummary"
         );
+
 
     const list =
         document.getElementById(
@@ -1879,9 +3318,12 @@ function renderReviews(reviews) {
 
 
         list.innerHTML =
-            `<div class="empty">
-                Chưa có đánh giá.
-            </div>`;
+
+            "<div class='empty'>" +
+
+            "Chưa có đánh giá." +
+
+            "</div>";
 
 
         return;
@@ -1889,7 +3331,8 @@ function renderReviews(reviews) {
     }
 
 
-    let total = 0;
+    let total =
+        0;
 
 
     reviews.forEach(
@@ -1916,7 +3359,11 @@ function renderReviews(reviews) {
 
 
     const starHTML =
-        "★".repeat(rounded) +
+
+        "★".repeat(
+            rounded
+        ) +
+
         "☆".repeat(
             5 - rounded
         );
@@ -1940,7 +3387,8 @@ function renderReviews(reviews) {
     `;
 
 
-    list.innerHTML = "";
+    list.innerHTML =
+        "";
 
 
     reviews.forEach(
@@ -1969,19 +3417,40 @@ function renderReviews(reviews) {
 
 
             const stars =
+
                 "★".repeat(
                     starNumber
                 ) +
+
                 "☆".repeat(
-                    5 -
-                    starNumber
+                    5 - starNumber
                 );
 
 
-            let mediaHTML = "";
+            item.innerHTML = `
+
+                <div class="review-name">
+                    👤 ${escapeHTML(review.name)}
+                </div>
+
+                <div class="stars">
+                    ${stars}
+                </div>
+
+                <div class="review-date">
+                    ${formatDate(review.time)}
+                </div>
+
+                <div class="review-text">
+                    ${escapeHTML(review.text)}
+                </div>
+
+            `;
 
 
-            /* ================= ẢNH ================= */
+            /**************************************
+             * ẢNH
+             **************************************/
 
             if (
                 review.images &&
@@ -1991,8 +3460,14 @@ function renderReviews(reviews) {
                 review.images.length
             ) {
 
-                mediaHTML +=
-                    `<div class="review-media">`;
+                const media =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                media.className =
+                    "review-media";
 
 
                 review.images.forEach(
@@ -2003,76 +3478,106 @@ function renderReviews(reviews) {
                         }
 
 
-                        mediaHTML += `
+                        const img =
+                            document.createElement(
+                                "img"
+                            );
 
-                            <img
-                                src="${escapeAttribute(imageUrl)}"
-                                alt="Ảnh khách hàng"
-                                onclick="window.open('${escapeAttribute(imageUrl)}','_blank')"
-                            >
 
-                        `;
+                        img.src =
+                            imageUrl;
+
+
+                        img.alt =
+                            "Ảnh khách hàng";
+
+
+                        img.loading =
+                            "lazy";
+
+
+                        img.onclick =
+                            function() {
+
+                                window.open(
+                                    imageUrl,
+                                    "_blank"
+                                );
+
+                            };
+
+
+                        media.appendChild(
+                            img
+                        );
 
                     }
                 );
 
 
-                mediaHTML +=
-                    `</div>`;
+                item.appendChild(
+                    media
+                );
 
             }
 
 
-            /* ================= VIDEO ================= */
+            /**************************************
+             * VIDEO
+             **************************************/
 
             if (
                 review.video
             ) {
 
-                mediaHTML += `
+                const media =
+                    document.createElement(
+                        "div"
+                    );
 
-                    <div class="review-media">
 
-                        <video
-                            src="${escapeAttribute(review.video)}"
-                            controls
-                            preload="metadata"
-                        ></video>
+                media.className =
+                    "review-media";
 
-                    </div>
 
-                `;
+                const iframe =
+                    document.createElement(
+                        "iframe"
+                    );
+
+
+                iframe.className =
+                    "review-video-frame";
+
+
+                iframe.src =
+                    review.video;
+
+
+                iframe.title =
+                    "Video đánh giá của khách hàng";
+
+
+                iframe.allow =
+                    "autoplay";
+
+
+                iframe.setAttribute(
+                    "allowfullscreen",
+                    ""
+                );
+
+
+                media.appendChild(
+                    iframe
+                );
+
+
+                item.appendChild(
+                    media
+                );
 
             }
-
-
-            item.innerHTML = `
-
-                <div class="review-name">
-                    👤 ${escapeHTML(
-                        review.name
-                    )}
-                </div>
-
-                <div class="stars">
-                    ${stars}
-                </div>
-
-                <div class="review-date">
-                    ${formatDate(
-                        review.time
-                    )}
-                </div>
-
-                <div class="review-text">
-                    ${escapeHTML(
-                        review.text
-                    )}
-                </div>
-
-                ${mediaHTML}
-
-            `;
 
 
             list.appendChild(
@@ -2085,70 +3590,53 @@ function renderReviews(reviews) {
 }
 
 
-/* ======================================================
-   CHỐNG HTML
-====================================================== */
+/****************************************************
+ * ESCAPE HTML
+ ****************************************************/
 
-function escapeHTML(text) {
-
-    return String(
-        text || ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(text) {
+function escapeHTML(
+    text
+) {
 
     return String(
         text || ""
     )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    );
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* ======================================================
-   NGÀY
-====================================================== */
+/****************************************************
+ * NGÀY
+ ****************************************************/
 
-function formatDate(value) {
+function formatDate(
+    value
+) {
 
     if (!value) {
         return "";
@@ -2158,7 +3646,9 @@ function formatDate(value) {
     try {
 
         const date =
-            new Date(value);
+            new Date(
+                value
+            );
 
 
         if (
@@ -2167,7 +3657,9 @@ function formatDate(value) {
             )
         ) {
 
-            return String(value);
+            return String(
+                value
+            );
 
         }
 
@@ -2175,24 +3667,34 @@ function formatDate(value) {
         return date.toLocaleDateString(
             "vi-VN",
             {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
+
+                day:
+                    "2-digit",
+
+                month:
+                    "2-digit",
+
+                year:
+                    "numeric"
+
             }
         );
 
-    } catch(error) {
 
-        return String(value);
+    } catch (error) {
+
+        return String(
+            value
+        );
 
     }
 
 }
 
 
-/* ======================================================
-   ĐÓNG MODAL KHI BẤM RA NGOÀI
-====================================================== */
+/****************************************************
+ * CLICK RA NGOÀI MODAL
+ ****************************************************/
 
 window.addEventListener(
     "click",
@@ -2202,6 +3704,7 @@ window.addEventListener(
             document.getElementById(
                 "detailModal"
             );
+
 
         const orderModal =
             document.getElementById(
@@ -2232,15 +3735,18 @@ window.addEventListener(
 );
 
 
-/* ======================================================
-   CHẠY WEBSITE
-====================================================== */
+/****************************************************
+ * CHẠY WEBSITE
+ ****************************************************/
 
 renderProducts();
 
-selectReviewStar(5);
+selectReviewStar(
+    5
+);
 
 </script>
+
 
 </body>
 
